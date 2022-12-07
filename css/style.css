@@ -5,17 +5,7 @@
 /* KEYFRAMES
 ========================================== */
 
-@font-face {
-  font-family: "mitra";
-  font-style: normal;
-  font-weight: normal;
-  /* src: url("BMitra-Regular.woff") format("woff"); */
-  src: url("vazir.woff") format("woff");
-}
-
-html {
-  direction: rtl;
-}
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap');
 
 @-webkit-keyframes float {
   0% {
@@ -83,7 +73,8 @@ html {
 
 body {
   background: #3e4146;
-  font-family: 'mitra', sans-serif;
+  font-family: 'Caveat', cursive;
+  font-size: xx-large;
 }
 
 /* BUTTON
