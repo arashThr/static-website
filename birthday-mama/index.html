@@ -15,6 +15,8 @@
       --gold:    #f5c542;
       --cream:   #fff8f2;
       --text:    #3a2040;
+      --ease-out-quint: cubic-bezier(.22, 1, .36, 1);
+      --ease-spring:    cubic-bezier(.34, 1.56, .64, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -26,8 +28,8 @@
       overflow-x: hidden;
     }
 
-    /* ── Floating petals canvas ── */
-    #petals-canvas {
+    /* ── Canvas (petals + fireworks) ── */
+    #main-canvas {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -48,15 +50,24 @@
       text-align: center;
     }
 
-    /* ── Hero ── */
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
     #hero {
       background: linear-gradient(160deg, #ffe0ec 0%, #ffd6a5 100%);
     }
 
+    /* Hero children animate in on load */
     .hero-flower {
       font-size: 64px;
-      animation: spin-slow 12s linear infinite;
       display: inline-block;
+      animation:
+        hero-drop .8s var(--ease-spring) .1s both,
+        spin-slow 14s linear 1s infinite;
+    }
+    @keyframes hero-drop {
+      from { opacity: 0; transform: translateY(-40px) scale(.6); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
     @keyframes spin-slow {
       from { transform: rotate(0deg); }
@@ -68,31 +79,60 @@
       color: var(--rose);
       margin: 20px 0 10px;
       line-height: 1.2;
-      text-shadow: 0 2px 8px rgba(232,88,122,.2);
+      text-shadow: 0 2px 12px rgba(232,88,122,.25);
+      animation: hero-rise 1s var(--ease-out-quint) .3s both;
     }
-
     #hero .subtitle {
       font-size: clamp(1rem, 4vw, 1.3rem);
       color: #7a4060;
       margin-bottom: 32px;
+      animation: hero-rise 1s var(--ease-out-quint) .5s both;
+    }
+    @keyframes hero-rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hearts-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      animation: hero-rise 1s var(--ease-out-quint) .7s both;
+    }
+    .heart {
+      font-size: 28px;
+      animation: heartbeat 1.3s ease-in-out infinite;
+    }
+    .heart:nth-child(1) { animation-delay: .0s; }
+    .heart:nth-child(2) { animation-delay: .18s; }
+    .heart:nth-child(3) { animation-delay: .36s; }
+    .heart:nth-child(4) { animation-delay: .54s; }
+    .heart:nth-child(5) { animation-delay: .72s; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      45%       { transform: scale(1.35); }
+      60%       { transform: scale(1.1); }
     }
 
     .scroll-hint {
       margin-top: 40px;
       font-size: 0.85rem;
       color: #b07090;
-      animation: bounce 2s infinite;
+      animation: hero-rise 1s var(--ease-out-quint) .9s both,
+                 bounce 2.2s ease-in-out 2s infinite;
     }
     .scroll-hint span { display: block; font-size: 1.6rem; }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(8px); }
+      50%       { transform: translateY(10px); }
     }
 
-    /* ── Cards ── */
-    .card-section {
-      background: var(--cream);
-    }
+    /* ══════════════════════════════
+       CARDS
+    ══════════════════════════════ */
+    .card-section { background: var(--cream); }
     .card-section:nth-child(even) {
       background: linear-gradient(160deg, #f3e8ff 0%, #ffe8f5 100%);
     }
@@ -104,72 +144,91 @@
       max-width: 460px;
       width: 100%;
       box-shadow: 0 8px 40px rgba(200,100,150,.13);
+      /* start state */
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(70px) scale(.95);
+      transition:
+        opacity  .85s var(--ease-out-quint),
+        transform .85s var(--ease-out-quint),
+        box-shadow .4s ease;
+    }
+    .card:hover {
+      box-shadow: 0 16px 56px rgba(200,100,150,.22);
     }
     .card.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
+    /* Icon pops in with spring after card arrives */
     .card .icon {
       font-size: 52px;
       margin-bottom: 18px;
-      display: block;
+      display: inline-block;
+      opacity: 0;
+      transform: scale(0) rotate(-20deg);
+      transition:
+        opacity  .5s var(--ease-spring) .35s,
+        transform .5s var(--ease-spring) .35s;
+    }
+    .card.visible .icon {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
     }
 
     .card h2 {
       font-size: clamp(1.3rem, 5vw, 1.8rem);
       color: var(--rose);
       margin-bottom: 14px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity  .6s var(--ease-out-quint) .45s,
+        transform .6s var(--ease-out-quint) .45s;
+    }
+    .card.visible h2 {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .card p {
       font-size: clamp(0.95rem, 3.5vw, 1.1rem);
       line-height: 1.8;
       color: #5a3850;
+      opacity: 0;
+      transform: translateY(10px);
+      transition:
+        opacity  .6s var(--ease-out-quint) .58s,
+        transform .6s var(--ease-out-quint) .58s;
+    }
+    .card.visible p {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* ── Heart counter ── */
-    .hearts-row {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .heart {
-      font-size: 28px;
-      animation: heartbeat 1.2s ease-in-out infinite;
-    }
-    .heart:nth-child(2) { animation-delay: .15s; }
-    .heart:nth-child(3) { animation-delay: .3s; }
-    .heart:nth-child(4) { animation-delay: .45s; }
-    .heart:nth-child(5) { animation-delay: .6s; }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.25); }
-    }
-
-    /* ── Final section ── */
+    /* ══════════════════════════════
+       FINALE
+    ══════════════════════════════ */
     #finale {
       background: linear-gradient(160deg, #ffe8b0 0%, #ffd6e0 100%);
     }
 
     #finale .big-emoji {
-      font-size: 80px;
-      animation: pop 1s cubic-bezier(.36,2,.6,1) both;
+      font-size: 88px;
+      display: inline-block;
+      animation: pop-in 1s var(--ease-spring) both;
     }
-    @keyframes pop {
-      from { transform: scale(0); opacity: 0; }
-      to   { transform: scale(1); opacity: 1; }
+    @keyframes pop-in {
+      0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+      60%  { transform: scale(1.15) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
     #finale h2 {
       font-size: clamp(1.6rem, 6vw, 2.4rem);
       color: var(--rose);
       margin: 20px 0 14px;
+      animation: hero-rise .9s var(--ease-out-quint) .2s both;
     }
 
     #finale p {
@@ -177,6 +236,7 @@
       color: #6a3850;
       max-width: 400px;
       line-height: 1.8;
+      animation: hero-rise .9s var(--ease-out-quint) .35s both;
     }
 
     .signature {
@@ -184,19 +244,16 @@
       font-style: italic;
       font-size: clamp(0.9rem, 3.5vw, 1.05rem);
       color: #9a5070;
+      animation: hero-rise .9s var(--ease-out-quint) .5s both;
     }
 
-    /* ── Confetti burst (CSS only) ── */
-    .confetti-wrap {
-      position: relative;
-      height: 0;
-    }
+    /* ── CSS confetti (kept as bonus on top of canvas fireworks) ── */
+    .confetti-wrap { position: relative; height: 0; }
     .confetti-piece {
       position: absolute;
       width: 10px; height: 10px;
       border-radius: 2px;
-      top: 0;
-      opacity: 0;
+      top: 0; opacity: 0;
     }
     .confetti-piece.go {
       animation: confetti-fall 2s ease-out forwards;
@@ -209,9 +266,9 @@
 </head>
 <body>
 
-<canvas id="petals-canvas"></canvas>
+<canvas id="main-canvas"></canvas>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section id="hero">
   <span class="hero-flower">🌸</span>
   <h1>Wszystkiego<br>Najlepszego!</h1>
@@ -229,11 +286,11 @@
   </p>
 </section>
 
-<!-- ── CARD 1 — Birthday wish ── -->
+<!-- CARD 1 -->
 <section class="card-section">
   <div class="card">
     <span class="icon">🎂</span>
-    <h2>W dniu Twoich urodzin…</h2>
+    <h2>W dniu Twoich urodzin</h2>
     <p>
       Niech ten wyjątkowy dzień będzie pełen radości, ciepłych chwil
       i wszystkiego, co sprawia Ci największą przyjemność.
@@ -242,20 +299,20 @@
   </div>
 </section>
 
-<!-- ── CARD 2 — Warmth & presence ── -->
+<!-- CARD 2 -->
 <section class="card-section">
   <div class="card">
     <span class="icon">🤗</span>
     <h2>Dziękujemy, że jesteś</h2>
     <p>
       Twoja obecność w naszym życiu jest prawdziwym darem.
-      Twoja dobroć, ciepło i troska otaczają nas każdego dnia —
+      Twoja dobroć, ciepło i troska otaczają nas każdego dnia
       i jesteśmy za to niezmiernie wdzięczni. 💛
     </p>
   </div>
 </section>
 
-<!-- ── CARD 3 — Help & support ── -->
+<!-- CARD 3 -->
 <section class="card-section">
   <div class="card">
     <span class="icon">🌻</span>
@@ -263,139 +320,256 @@
     <p>
       Dziękujemy Ci z całego serca za wszystko, co dla nas robisz.
       Każda Twoja pomoc, każde dobre słowo i każda chwila poświęcona
-      nam — znaczą dla nas więcej, niż słowa potrafią wyrazić. 🙏
+      nam znaczą dla nas więcej, niż słowa potrafią wyrazić. 🙏
     </p>
   </div>
 </section>
 
-<!-- ── CARD 4 — Family love ── -->
+<!-- CARD 4 -->
 <section class="card-section">
   <div class="card">
     <span class="icon">👨‍👩‍👧</span>
     <h2>Jesteś dla nas rodziną</h2>
     <p>
       Cieszymy się, że jesteś częścią naszej wspólnej historii.
-      Twoja miłość buduje most między nami, i za to jesteśmy
+      Twoja miłość buduje most między nami i za to jesteśmy
       Ci niesłychanie wdzięczni. Kochamy Cię! 💞
     </p>
   </div>
 </section>
 
-<!-- ── FINALE ── -->
+<!-- FINALE -->
 <section id="finale">
   <div id="confetti-origin" class="confetti-wrap"></div>
-  <span class="big-emoji" id="big-emoji">🎉</span>
+  <span class="big-emoji">🎉</span>
   <h2>Sto lat, Pani Mamo!</h2>
   <p>
     Niech każdy nowy rok przynosi Ci zdrowie, radość i spełnienie marzeń.
-    Z miłością i wdzięcznością — na zawsze Twoi. 🌹
+    Z miłością i wdzięcznością, na zawsze Twoi. 🌹
   </p>
-  <p class="signature">— z miłością 💗</p>
+  <p class="signature">z miłością 💗</p>
 </section>
 
 <script>
-  /* ── Floating petals ── */
-  (function () {
-    const canvas = document.getElementById('petals-canvas');
-    const ctx = canvas.getContext('2d');
-    const EMOJIS = ['🌸','🌺','🌹','✨','💕','🌷'];
-    let petals = [];
+/* ═══════════════════════════════════════════════════════
+   CANVAS: floating petals + fireworks
+═══════════════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('main-canvas');
+  const ctx    = canvas.getContext('2d');
 
-    function resize() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-    function spawn() {
-      petals.push({
-        x: Math.random() * canvas.width,
-        y: -30,
-        size: 14 + Math.random() * 18,
-        speed: 0.5 + Math.random() * 1.2,
-        drift: (Math.random() - 0.5) * 0.6,
-        rot: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.04,
-        emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-        alpha: 0.6 + Math.random() * 0.4,
+  /* ── Petals ── */
+  const PETAL_EMOJIS = ['🌸','🌺','🌹','✨','💕','🌷','⭐'];
+  let petals = [];
+  let petalFrame = 0;
+
+  function spawnPetal() {
+    petals.push({
+      x:        Math.random() * canvas.width,
+      y:        -30,
+      size:     14 + Math.random() * 18,
+      speed:    0.5 + Math.random() * 1.2,
+      drift:    (Math.random() - 0.5) * 0.7,
+      rot:      Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.04,
+      emoji:    PETAL_EMOJIS[Math.floor(Math.random() * PETAL_EMOJIS.length)],
+      alpha:    0.55 + Math.random() * 0.35,
+    });
+  }
+
+  /* ── Fireworks ── */
+  const FW_COLORS = [
+    '#ff6b9d','#ffd700','#ff4500','#00cfff',
+    '#ff69b4','#adff2f','#ff8c00','#da70d6',
+    '#fff', '#f5c542',
+  ];
+  let rockets = [];
+  let sparks  = [];
+  let fireworksActive = false;
+  let lastLaunch = 0;
+  const LAUNCH_INTERVAL = 1400; // ms between rockets
+
+  function launchRocket() {
+    const x = canvas.width * (0.15 + Math.random() * 0.7);
+    rockets.push({
+      x, y: canvas.height + 10,
+      vx:   (Math.random() - 0.5) * 2.5,
+      vy:   -(10 + Math.random() * 5),
+      targetY: canvas.height * (0.08 + Math.random() * 0.38),
+      trail: [],
+      color: FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)],
+    });
+  }
+
+  function explode(x, y, color) {
+    const count = 70 + Math.floor(Math.random() * 40);
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+      const speed = 1.2 + Math.random() * 4.5;
+      sparks.push({
+        x, y,
+        vx:      Math.cos(angle) * speed,
+        vy:      Math.sin(angle) * speed,
+        alpha:   1,
+        color:   Math.random() < 0.3 ? '#fff' : color,
+        size:    1.5 + Math.random() * 2.5,
+        gravity: 0.06 + Math.random() * 0.03,
+        drag:    0.97,
       });
     }
+    /* small secondary sparkles */
+    for (let i = 0; i < 20; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.5 + Math.random() * 2;
+      sparks.push({
+        x, y,
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        alpha: 0.8, color: '#fff8a0', size: 1, gravity: 0.04, drag: 0.98,
+      });
+    }
+  }
 
-    let frame = 0;
-    function loop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      frame++;
-      if (frame % 28 === 0) spawn();
+  /* ── Main loop ── */
+  function loop(ts) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      petals = petals.filter(p => p.y < canvas.height + 40);
-      for (const p of petals) {
-        p.y += p.speed;
-        p.x += p.drift;
-        p.rot += p.rotSpeed;
+    /* petals */
+    petalFrame++;
+    if (petalFrame % 26 === 0) spawnPetal();
+    petals = petals.filter(p => p.y < canvas.height + 40);
+    for (const p of petals) {
+      p.y   += p.speed;
+      p.x   += p.drift;
+      p.rot += p.rotSpeed;
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.font = `${p.size}px serif`;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillText(p.emoji, -p.size / 2, p.size / 2);
+      ctx.restore();
+    }
+
+    /* fireworks */
+    if (fireworksActive && ts - lastLaunch > LAUNCH_INTERVAL) {
+      launchRocket();
+      lastLaunch = ts;
+    }
+
+    /* rockets */
+    rockets = rockets.filter(r => r.alive !== false);
+    for (const r of rockets) {
+      r.trail.push({ x: r.x, y: r.y });
+      if (r.trail.length > 10) r.trail.shift();
+      r.x  += r.vx;
+      r.y  += r.vy;
+      r.vy += 0.12;
+      /* draw trail */
+      for (let i = 1; i < r.trail.length; i++) {
+        const a = i / r.trail.length;
         ctx.save();
-        ctx.globalAlpha = p.alpha;
-        ctx.font = `${p.size}px serif`;
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.fillText(p.emoji, -p.size / 2, p.size / 2);
+        ctx.globalAlpha = a * 0.9;
+        ctx.strokeStyle = r.color;
+        ctx.lineWidth   = a * 3;
+        ctx.lineCap     = 'round';
+        ctx.beginPath();
+        ctx.moveTo(r.trail[i - 1].x, r.trail[i - 1].y);
+        ctx.lineTo(r.trail[i].x,     r.trail[i].y);
+        ctx.stroke();
         ctx.restore();
       }
-      requestAnimationFrame(loop);
-    }
-    loop();
-  })();
-
-  /* ── Scroll-reveal cards ── */
-  (function () {
-    const cards = document.querySelectorAll('.card');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    cards.forEach(c => io.observe(c));
-  })();
-
-  /* ── Confetti burst on finale ── */
-  (function () {
-    const COLORS = ['#e8587a','#f5c542','#c9aaff','#ffd6a5','#a8e6cf','#f9a8c9'];
-    const origin = document.getElementById('confetti-origin');
-    const finale = document.getElementById('finale');
-
-    function burst() {
-      for (let i = 0; i < 30; i++) {
-        const el = document.createElement('div');
-        el.className = 'confetti-piece';
-        const angle = Math.random() * Math.PI * 2;
-        const dist  = 80 + Math.random() * 160;
-        el.style.setProperty('--cx', Math.cos(angle) * dist + 'px');
-        el.style.setProperty('--cy', Math.sin(angle) * dist + 'px');
-        el.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
-        el.style.left = '50%';
-        el.style.top  = '0';
-        origin.appendChild(el);
-        // trigger reflow then animate
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => { el.classList.add('go'); });
-        });
-        setTimeout(() => el.remove(), 2200);
+      /* burst when peak reached */
+      if (r.y <= r.targetY) {
+        explode(r.x, r.y, r.color);
+        r.alive = false;
       }
     }
 
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          burst();
-          io.unobserve(finale);
-        }
-      });
-    }, { threshold: 0.4 });
-    io.observe(finale);
-  })();
+    /* sparks */
+    for (const s of sparks) {
+      s.x    += s.vx;
+      s.y    += s.vy;
+      s.vy   += s.gravity;
+      s.vx   *= s.drag;
+      s.vy   *= s.drag;
+      s.alpha -= 0.013;
+      if (s.alpha <= 0) continue;
+      ctx.save();
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle   = s.color;
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur  = 4;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    sparks = sparks.filter(s => s.alpha > 0);
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  /* activate fireworks when finale is visible */
+  const finale = document.getElementById('finale');
+  new IntersectionObserver(entries => {
+    fireworksActive = entries[0].isIntersecting;
+    if (fireworksActive) lastLaunch = 0;
+  }, { threshold: 0.3 }).observe(finale);
+})();
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════════════ */
+(function () {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.card').forEach(c => io.observe(c));
+})();
+
+/* ═══════════════════════════════════════════════════════
+   CSS CONFETTI BURST (on top of canvas fireworks)
+═══════════════════════════════════════════════════════ */
+(function () {
+  const COLORS = ['#e8587a','#f5c542','#c9aaff','#ffd6a5','#a8e6cf','#f9a8c9'];
+  const origin = document.getElementById('confetti-origin');
+  const finale = document.getElementById('finale');
+  let burst_done = false;
+
+  function burst() {
+    for (let i = 0; i < 40; i++) {
+      const el    = document.createElement('div');
+      el.className = 'confetti-piece';
+      const angle  = Math.random() * Math.PI * 2;
+      const dist   = 100 + Math.random() * 200;
+      el.style.setProperty('--cx', Math.cos(angle) * dist + 'px');
+      el.style.setProperty('--cy', Math.sin(angle) * dist + 'px');
+      el.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+      el.style.left = '50%';
+      el.style.top  = '0';
+      origin.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('go')));
+      setTimeout(() => el.remove(), 2400);
+    }
+  }
+
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !burst_done) {
+      burst();
+      burst_done = true;
+    }
+  }, { threshold: 0.4 }).observe(finale);
+})();
 </script>
 </body>
 </html>
