@@ -173,7 +173,60 @@ class Eye {
    ══════════════════════════════════════════════════════ */
 document.getElementById('notifClose').addEventListener('click', () => {
   document.getElementById('notifOverlay').style.display = 'none';
+  scheduleNetworkAlert();
+  startStatusFlicker();
 });
+
+function scheduleNetworkAlert() {
+  setTimeout(() => {
+    const key = 'net-alert';
+    if (openWins[key]) return;
+    const now = new Date();
+    const ts = now.toISOString().slice(0,19).replace('T',' ') + ' UTC';
+    openWins[key] = new WinBox({
+      title: 'ALERT: connectivity.lost',
+      html: `<div class="net-alert-content">
+        <div class="net-alert-status">⚠ NETWORK CONNECTIVITY LOST</div>
+        <div class="net-alert-location">Detected: ${ts}<br>Region: Tehran, IR — AS44244 (IRANCELL)<br>Protocol: BGP withdrawal confirmed</div>
+        <div class="net-alert-body">
+Your connection to the outside world has been cut.<br><br>
+<em>This is what 80 million people experienced<br>
+on November 16, 2019.</em><br><br>
+No Twitter. No Signal. No news in or out.<br>
+International observers: blind.<br><br>
+The protests continued for five days<br>
+without the world watching.<br><br>
+At least 1,500 people were killed.<br><br>
+<em>The tools that work offline are the only<br>
+tools that work when this happens.</em>
+        </div>
+        <button class="net-alert-btn" id="netAlertBtn">See the curriculum →</button>
+      </div>`,
+      width: 440, height: 420,
+      x: Math.max(40, window.innerWidth / 2 - 220),
+      y: Math.max(40, window.innerHeight / 2 - 210),
+      class: ['net-alert'],
+      onclose() { delete openWins[key]; },
+    });
+    document.getElementById('netAlertBtn').addEventListener('click', () => {
+      openWins[key]?.close();
+      openSessionsFolder();
+    });
+  }, 6000);
+}
+
+function startStatusFlicker() {
+  const el = document.getElementById('statusMsg');
+  if (!el) return;
+  setInterval(() => {
+    el.textContent = 'connection: unstable';
+    el.classList.add('unstable');
+    setTimeout(() => {
+      el.textContent = 'still online';
+      el.classList.remove('unstable');
+    }, 1500);
+  }, 28000);
+}
 
 
 /* ══════════════════════════════════════════════════════
@@ -191,6 +244,11 @@ document.getElementById('notifClose').addEventListener('click', () => {
     'rm -rf /surveillance',
     'knowledge is infrastructure',
     'uptime: always',
+    'connection: severed',
+    'ISP offline — gov. order #4821',
+    'mesh: searching for peers...',
+    'last uptime: 74h ago',
+    'fallback: shortwave radio',
   ];
   const el = document.getElementById('termMsg');
   let idx = 0, pos = 0, typing = true;
@@ -391,6 +449,85 @@ The answer is running your own stack.
 
 ──────────────────────────────────────────────
 </pre>`,
+  },
+
+  blackout: {
+    title: 'BLACKOUT.log',
+    width: 600, height: 540,
+    x: 180, y: 55,
+    content: `<pre class="file-text">BLACKOUT.log — documented internet shutdowns
+══════════════════════════════════════════════
+Source: NetBlocks, OONI, Access Now #KeepItOn
+
+[2019-11-16 14:24 UTC] IRAN
+  Duration:  5 days (nationwide)
+  Trigger:   fuel price protests
+  Impact:    ~1,500 killed during blackout
+             International community blind
+  Method:    BGP withdrawal by state ISPs
+
+[2021-02-01 01:00 UTC] MYANMAR
+  Duration:  18+ months (partial/full cycles)
+  Trigger:   military coup
+  Impact:    genocide documented later via
+             smuggled footage, not live feeds
+  Method:    directive to all licensed ISPs
+
+[2022-09-21 22:00 UTC] IRAN
+  Duration:  weeks (rolling shutdowns)
+  Trigger:   Mahsa Amini protests
+  Impact:    mobile data cut first, then
+             fixed-line throttled to unusable
+  Method:    deep packet inspection + kill switch
+
+[2022-02-24 06:00 UTC] UKRAINE
+  Duration:  ongoing (targeted attacks)
+  Trigger:   Russian invasion
+  Impact:    Viasat KA-SAT satellite taken down
+             hour one of the invasion
+  Method:    cyberattack + physical infra strikes
+
+[2023-04-06 00:00 UTC] SUDAN
+  Duration:  25+ days
+  Trigger:   RSF–SAF conflict outbreak
+  Impact:    hospitals unable to coordinate,
+             atrocities unwitnessed
+  Method:    physical seizure of exchange points
+
+[2021-06-18 00:00 UTC] ETHIOPIA (Tigray)
+  Duration:  ~2 years
+  Trigger:   civil war
+  Impact:    longest telecom blackout in history
+             documented by satellite imagery only
+  Method:    state telecom monopoly ordered offline
+
+──────────────────────────────────────────────
+TOTAL 2016–2024: 283 documented shutdowns
+across 72 countries.
+Source: Access Now #KeepItOn coalition
+──────────────────────────────────────────────
+
+[PERSONAL NOTE — Arash, 2024]
+
+I was in Iran during the 2019 and 2022 shutdowns.
+
+The first time, I found out from a relative
+calling from abroad: "can you see the news?"
+I couldn't. Nobody inside could.
+
+You learn quickly what you should have set up
+before. The VPN that only works with internet.
+The backup that lives in the cloud. The Signal
+messages queued, unsent.
+
+The second time I was better prepared.
+Not because I was smarter.
+Because I had done the sessions.
+
+These tools are not paranoia.
+They are what the next 72 hours might require.
+
+──────────────────────────────────────────────</pre>`,
   },
 
   join: {
