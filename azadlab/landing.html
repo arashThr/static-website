@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azad Lab — Digital Sovereignty Workshops · Stockholm</title>
+  <meta name="description" content="Hands-on workshops teaching digital sovereignty in Stockholm. For everyone — no technical background needed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Variables ────────────────────────────────────── */
+    :root {
+      --bg:    #060608;
+      --text:  #ede8e0;
+      --dim:   rgba(237,232,224,0.42);
+      --amber: #e88820;
+      --red:   #c42200;
+      --line:  rgba(237,232,224,0.07);
+      --f-display: 'Bebas Neue', sans-serif;
+      --f-body:    'Space Grotesk', sans-serif;
+      --f-mono:    'IBM Plex Mono', monospace;
+    }
+
+    /* ─── Reset ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Sections ─────────────────────────────────────── */
+    section {
+      position: relative;
+      min-height: 100svh;
+      padding: clamp(64px,10vh,120px) clamp(24px,8vw,110px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ─── Hero ─────────────────────────────────────────── */
+    #hero {
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(to bottom, transparent, #070809);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #heroEye {
+      position: absolute;
+      width: min(90vw, 760px);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(76px, 17vw, 196px);
+      letter-spacing: 0.04em;
+      line-height: 0.9;
+      text-shadow: 0 0 100px rgba(6,6,8,0.9), 0 0 40px rgba(6,6,8,0.7);
+    }
+
+    .hero-sub {
+      font-size: clamp(12px, 1.7vw, 15px);
+      color: var(--dim);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-top: 22px;
+    }
+
+    .hero-farsi {
+      font-family: var(--f-mono);
+      font-size: clamp(12px, 1.5vw, 15px);
+      color: rgba(232,136,32,0.5);
+      letter-spacing: 0.1em;
+      margin-top: 10px;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--dim);
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+    }
+
+    .scroll-line {
+      display: block;
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, transparent, var(--dim));
+      animation: lineDrop 2s ease-in-out infinite;
+    }
+
+    @keyframes lineDrop {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      45%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      55%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ─── Shared section components ────────────────────── */
+    .label {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .section-heading {
+      font-family: var(--f-display);
+      font-size: clamp(48px, 9.5vw, 112px);
+      line-height: 1.0;
+      margin-bottom: 40px;
+    }
+
+    /* ─── They Know ────────────────────────────────────── */
+    #they-know { background: #070809; }
+
+    .data-list {
+      list-style: none;
+      max-width: 720px;
+    }
+
+    .data-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .data-item:first-child { border-top: 1px solid var(--line); }
+
+    .data-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: clamp(17px, 2.3vw, 22px);
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .data-sub {
+      font-family: var(--f-mono);
+      font-size: clamp(11px, 1.3vw, 13px);
+      color: var(--dim);
+      margin-top: 6px;
+      padding-left: 21px;
+      line-height: 1.55;
+    }
+
+    .data-footer {
+      margin-top: 40px;
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--dim);
+      max-width: 600px;
+      line-height: 1.65;
+    }
+
+    .data-footer strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Shutdowns ────────────────────────────────────── */
+    #shutdowns { background: #080507; }
+
+    .shutdown-big {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 52px;
+    }
+
+    .shutdown-num {
+      font-family: var(--f-display);
+      font-size: clamp(110px, 24vw, 280px);
+      line-height: 0.82;
+      color: var(--red);
+    }
+
+    .shutdown-sublabel {
+      font-family: var(--f-mono);
+      font-size: clamp(12px, 1.5vw, 15px);
+      color: var(--dim);
+      letter-spacing: 0.07em;
+      margin-top: 8px;
+    }
+
+    .incidents {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 660px;
+    }
+
+    .incident {
+      border-left: 2px solid rgba(196,34,0,0.3);
+      padding-left: 20px;
+    }
+
+    .incident-when {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: rgba(196,34,0,0.7);
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+    }
+
+    .incident-what {
+      font-size: clamp(15px, 1.9vw, 19px);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .incident-detail {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: var(--dim);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    .shutdown-alert {
+      margin-top: 40px;
+      font-family: var(--f-mono);
+      font-size: clamp(12px, 1.5vw, 14px);
+      color: var(--amber);
+      border: 1px solid rgba(232,136,32,0.25);
+      padding: 16px 22px;
+      display: inline-block;
+      line-height: 1.65;
+    }
+
+    /* ─── Personal ─────────────────────────────────────── */
+    #personal { background: #060709; }
+
+    .quote-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 840px;
+    }
+
+    .q {
+      font-size: clamp(21px, 3.5vw, 42px);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .q em { color: var(--amber); font-style: normal; }
+
+    .q-muted { color: var(--dim); }
+
+    .q-rule {
+      width: 44px; height: 1px;
+      background: rgba(232,136,32,0.4);
+      margin: 6px 0;
+    }
+
+    .q-follow {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--dim);
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    .q-follow em { color: var(--text); font-style: normal; font-weight: 500; }
+
+    .q-attr {
+      margin-top: 40px;
+      font-family: var(--f-mono);
+      font-size: 13px;
+      color: var(--dim);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .q-attr strong { color: var(--text); font-weight: 500; }
+
+    /* ─── Curriculum ───────────────────────────────────── */
+    #curriculum { background: #07080b; }
+
+    .curriculum-intro {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--dim);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .sess-card {
+      background: #07080b;
+      padding: 28px 26px;
+      transition: background 0.2s;
+    }
+
+    .sess-card:hover { background: #0c1018; }
+
+    .sess-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .sess-title {
+      font-size: clamp(16px, 1.8vw, 18px);
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .sess-desc {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: var(--dim);
+      line-height: 1.65;
+    }
+
+    /* ─── For Everyone ─────────────────────────────────── */
+    #everyone { background: #060608; }
+
+    .big-claim {
+      font-family: var(--f-display);
+      font-size: clamp(54px, 10.5vw, 132px);
+      line-height: 1.04;
+      max-width: 980px;
+    }
+
+    .big-claim .hl { color: var(--amber); }
+
+    .everyone-body {
+      font-size: clamp(17px, 2.1vw, 21px);
+      color: var(--dim);
+      margin-top: 36px;
+      max-width: 580px;
+      line-height: 1.72;
+    }
+
+    .everyone-body strong { color: var(--text); font-weight: 500; }
+
+    /* ─── Join ─────────────────────────────────────────── */
+    #join {
+      background: #050507;
+      min-height: 80svh;
+    }
+
+    .join-heading {
+      font-family: var(--f-display);
+      font-size: clamp(66px, 13vw, 160px);
+      line-height: 0.93;
+      margin-bottom: 44px;
+    }
+
+    .join-meta {
+      font-size: clamp(16px, 1.9vw, 19px);
+      color: var(--dim);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: clamp(16px, 2vw, 20px);
+      transition: color 0.18s;
+    }
+
+    .contact:hover { color: var(--amber); }
+
+    .contact-tag {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      width: 88px;
+      flex-shrink: 0;
+    }
+
+    .join-foot {
+      margin-top: 64px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .farsi-tag {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    .terminal-link {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.18s;
+    }
+
+    .terminal-link:hover { color: var(--amber); }
+
+    /* ─── Mobile ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      section { padding: 60px 20px; }
+      #heroEye { width: 96vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ HERO ══════════════════════════════════════════ -->
+<section id="hero">
+
+  <svg id="heroEye" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="irisG" cx="43%" cy="40%" r="58%">
+        <stop offset="0%"   stop-color="#922c0a"/>
+        <stop offset="30%"  stop-color="#4e1206"/>
+        <stop offset="70%"  stop-color="#200603"/>
+        <stop offset="100%" stop-color="#100100"/>
+      </radialGradient>
+      <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="rgba(190,90,25,0.14)"/>
+        <stop offset="100%" stop-color="rgba(190,90,25,0)"/>
+      </radialGradient>
+    </defs>
+
+    <!-- ambient glow -->
+    <ellipse cx="400" cy="190" rx="395" ry="182" fill="url(#glowG)"/>
+
+    <!-- sclera -->
+    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190 C 680,330 515,366 400,366 C 285,366 120,330 16,190 Z"
+          fill="#0c0707"/>
+
+    <!-- iris -->
+    <circle id="eyeIris" cx="400" cy="190" r="110" fill="url(#irisG)"/>
+
+    <!-- iris rings -->
+    <circle cx="400" cy="190" r="110" fill="none" stroke="rgba(140,55,18,0.3)" stroke-width="1.5"/>
+    <circle cx="400" cy="190" r="84"  fill="none" stroke="rgba(110,40,14,0.2)" stroke-width="1"/>
+
+    <!-- pupil -->
+    <circle id="eyePupil" cx="400" cy="190" r="52" fill="#000"/>
+
+    <!-- highlights -->
+    <ellipse cx="436" cy="163" rx="21" ry="13" fill="rgba(255,205,120,0.10)" transform="rotate(-28 436 163)"/>
+    <circle  cx="442" cy="158" r="8" fill="rgba(255,225,160,0.14)"/>
+
+    <!-- eyelid outline curves -->
+    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190"
+          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
+    <path d="M 16,190 C 120,330 285,366 400,366 C 515,366 680,330 784,190"
+          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
+
+    <!-- upper lid cover (slides up to reveal eye) -->
+    <path id="lidTop"
+          d="M -30,190 C 120,50 285,14 400,14 C 515,14 680,50 830,190 L 830,-30 L -30,-30 Z"
+          fill="#060608"/>
+
+    <!-- lower lid cover (slides down to reveal eye) -->
+    <path id="lidBot"
+          d="M -30,190 C 120,330 285,366 400,366 C 515,366 680,330 830,190 L 830,410 L -30,410 Z"
+          fill="#060608"/>
+  </svg>
+
+  <div class="hero-content" id="heroContent">
+    <h1 class="hero-title">AZAD LAB</h1>
+    <p class="hero-sub">Digital Sovereignty Workshops · Stockholm</p>
+    <p class="hero-farsi">آزاد — free</p>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue">
+    <span>SCROLL</span>
+    <span class="scroll-line"></span>
+  </div>
+
+</section>
+
+<!-- ════════ THEY KNOW ════════════════════════════════════ -->
+<section id="they-know">
+  <p class="label">The situation</p>
+  <h2 class="section-heading">Right now,<br>they know:</h2>
+
+  <ul class="data-list" id="dataList">
+    <li class="data-item">
+      <div class="data-top"><span class="dot"></span>Where you are — right now</div>
+      <div class="data-sub">To within a few metres. Updated continuously. Stored for years.</div>
+    </li>
+    <li class="data-item">
+      <div class="data-top"><span class="dot"></span>Who you talk to — and how often</div>
+      <div class="data-sub">Metadata alone reveals your closest relationships, your health, your politics.</div>
+    </li>
+    <li class="data-item">
+      <div class="data-top"><span class="dot"></span>What you search for — going back years</div>
+      <div class="data-sub">Health concerns, private fears, political questions — all logged and profiled.</div>
+    </li>
+    <li class="data-item">
+      <div class="data-top"><span class="dot"></span>What you believe — inferred and scored</div>
+      <div class="data-sub">Political and psychological profiles built from clicks, pauses, and shares. Sold.</div>
+    </li>
+    <li class="data-item">
+      <div class="data-top"><span class="dot"></span>Your home — when you're there, when you're not</div>
+      <div class="data-sub">Smart devices, phone pings, utility data — combined, analysed, monetised.</div>
+    </li>
+  </ul>
+
+  <p class="data-footer" id="dataFooter">
+    You didn't hide this. You didn't choose to share it.<br>
+    <strong>You just used the internet.</strong>
+  </p>
+</section>
+
+<!-- ════════ SHUTDOWNS ════════════════════════════════════ -->
+<section id="shutdowns">
+  <p class="label">When it gets worse</p>
+
+  <div class="shutdown-big">
+    <span class="shutdown-num" id="shutdownCount">0</span>
+    <span class="shutdown-sublabel">documented internet shutdowns · 2016 – 2024 · across 72 countries</span>
+  </div>
+
+  <div class="incidents" id="incidentList">
+    <div class="incident">
+      <div class="incident-when">November 2019 · Iran</div>
+      <div class="incident-what">The internet went dark for five days.</div>
+      <div class="incident-detail">Protests were suppressed. At least 1,500 people were killed. The world found out afterwards.</div>
+    </div>
+    <div class="incident">
+      <div class="incident-when">February 2021 · Myanmar</div>
+      <div class="incident-what">Military coup. Internet cut.</div>
+      <div class="incident-detail">18 months of rolling blackouts. Atrocities documented only through smuggled footage.</div>
+    </div>
+    <div class="incident">
+      <div class="incident-when">February 2022 · Ukraine</div>
+      <div class="incident-what">Infrastructure attacks began in the first hour of the invasion.</div>
+      <div class="incident-detail">Satellite internet, telecoms, and power grids all targeted simultaneously.</div>
+    </div>
+    <div class="incident">
+      <div class="incident-when">2021 – 2023 · Ethiopia, Tigray</div>
+      <div class="incident-what">Two years without any telecommunications.</div>
+      <div class="incident-detail">The longest documented communications blackout in history. Confirmed later from satellite images.</div>
+    </div>
+  </div>
+
+  <div class="shutdown-alert" id="shutdownAlert">
+    ⚠ Right now: Iran has been offline for 40+ days.<br>
+    This is not a news story. This is infrastructure as a weapon.
+  </div>
+</section>
+
+<!-- ════════ PERSONAL ═════════════════════════════════════ -->
+<section id="personal">
+  <p class="label">Why this exists</p>
+
+  <div class="quote-stack">
+    <p class="q" id="q1">
+      "In November 2019, I was in Tehran<br>when <em>the internet went dark.</em>"
+    </p>
+    <p class="q q-muted" id="q2">
+      "I knew people were being killed outside.<br>
+       The world didn't. Not for five days."
+    </p>
+    <div class="q-rule" id="qRule"></div>
+    <p class="q-follow" id="qFollow">
+      I had already built the tools to stay connected.
+      A connection that worked without a reliable internet.
+      Backups on hardware I controlled.
+      Communication that didn't depend on any single server.<br><br>
+      <em>Not because I was an expert. Because I had prepared.</em>
+    </p>
+  </div>
+
+  <div class="q-attr" id="qAttr">
+    <strong>Arash</strong>
+    <span>Founder, Azad Lab</span>
+    <span>Software engineer · Stockholm</span>
+  </div>
+</section>
+
+<!-- ════════ CURRICULUM ═══════════════════════════════════ -->
+<section id="curriculum">
+  <p class="label">The workshops</p>
+  <h2 class="section-heading">6 sessions.<br>Real tools.<br>No jargon.</h2>
+
+  <p class="curriculum-intro" id="curriculumIntro">
+    Every session ends with something running on your own machine —
+    not slides, not theory. A tool you own and control.
+  </p>
+
+  <div class="card-grid" id="cardGrid">
+    <div class="sess-card">
+      <div class="sess-num">SESSION 01</div>
+      <div class="sess-title">Your Computer, Not Theirs</div>
+      <div class="sess-desc">Move to Linux. Understand what you're running and why it matters. No experience needed.</div>
+    </div>
+    <div class="sess-card">
+      <div class="sess-num">SESSION 02</div>
+      <div class="sess-title">Your Photos & Media, Your Server</div>
+      <div class="sess-desc">Stop storing memories in corporate clouds. Host your own photo library on hardware you own.</div>
+    </div>
+    <div class="sess-card">
+      <div class="sess-num">SESSION 03</div>
+      <div class="sess-title">Private Access from Anywhere</div>
+      <div class="sess-desc">Connect to your own network securely from anywhere, without exposing it to the internet.</div>
+    </div>
+    <div class="sess-card">
+      <div class="sess-num">SESSION 04</div>
+      <div class="sess-title">Take Back Your Phone</div>
+      <div class="sess-desc">Your phone is the most powerful surveillance device ever made. Learn to make it yours.</div>
+    </div>
+    <div class="sess-card">
+      <div class="sess-num">SESSION 05</div>
+      <div class="sess-title">Your Own Infrastructure</div>
+      <div class="sess-desc">A small device at home can run your storage, backups, and automation — with no third party.</div>
+    </div>
+    <div class="sess-card">
+      <div class="sess-num">SESSION 06</div>
+      <div class="sess-title">When the Network Goes Dark</div>
+      <div class="sess-desc">Power cuts. ISP outages. Infrastructure attacks. Offline tools, mesh communication, resilience.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOR EVERYONE ═════════════════════════════════ -->
+<section id="everyone">
+  <h2 class="big-claim" id="bigClaim">
+    You don't need<br>to be <span class="hl">technical.</span><br>
+    You need to know<br>what's <span class="hl">at stake.</span>
+  </h2>
+
+  <p class="everyone-body" id="everyoneBody">
+    Every workshop is designed for complete beginners.
+    We explain what we're doing and why — in plain language.<br><br>
+    <strong>Sweden is preparing its citizens for crisis.</strong>
+    MSB asks every household to be self-sufficient for 72 hours.
+    Digital preparedness is part of that. This is where you start.
+  </p>
+</section>
+
+<!-- ════════ JOIN ══════════════════════════════════════════ -->
+<section id="join">
+  <p class="label">Get involved</p>
+  <h2 class="join-heading" id="joinHeading">Join<br>the lab.</h2>
+
+  <p class="join-meta" id="joinMeta">
+    Monthly workshops in Stockholm.<br>
+    Remote participation available for all sessions.<br>
+    No prior experience required. Bring a laptop.
+  </p>
+
+  <div class="contacts" id="joinContacts">
+    <a class="contact" href="https://t.me/azadlab">
+      <span class="contact-tag">TELEGRAM</span>t.me/azadlab
+    </a>
+    <a class="contact" href="mailto:hello@azadlab.dev">
+      <span class="contact-tag">EMAIL</span>hello@azadlab.dev
+    </a>
+  </div>
+
+  <div class="join-foot" id="joinFoot">
+    <span class="farsi-tag">آزاد (azad) — free</span>
+    <a class="terminal-link" href="index.html">→ open the terminal version</a>
+  </div>
+</section>
+
+<!-- ════════ SCRIPTS ═══════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Eye: open on load ─────────────────────────────── */
+  const LID_Y = 230;
+
+  const openTl = gsap.timeline({ delay: 0.2 });
+  openTl
+    .to('#lidTop', { y: -LID_Y, duration: 1.8, ease: 'power2.inOut' }, 0)
+    .to('#lidBot', { y:  LID_Y, duration: 1.8, ease: 'power2.inOut' }, 0)
+    .from('#heroContent', { opacity: 0, y: 18, duration: 1, ease: 'power2.out' }, 1.0)
+    .from('#scrollCue',   { opacity: 0, duration: 0.7 }, 1.7);
+
+  /* ── Eye: iris tracks pointer ──────────────────────── */
+  function trackPointer(px, py) {
+    const svg = document.getElementById('heroEye');
+    if (!svg) return;
+    const r  = svg.getBoundingClientRect();
+    const nx = Math.max(-1, Math.min(1, (px - (r.left + r.width  / 2)) / (r.width  / 2)));
+    const ny = Math.max(-1, Math.min(1, (py - (r.top  + r.height / 2)) / (r.height / 2)));
+    gsap.to(['#eyeIris', '#eyePupil'], {
+      x: nx * 22, y: ny * 14,
+      duration: 0.5, ease: 'power2.out', overwrite: true,
+    });
+  }
+
+  window.addEventListener('mousemove', e => trackPointer(e.clientX, e.clientY));
+  window.addEventListener('touchmove', e => {
+    trackPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  /* ── Eye: blink loop ───────────────────────────────── */
+  function blink() {
+    setTimeout(() => {
+      const tl = gsap.timeline({ onComplete: blink });
+      tl.to(['#lidTop', '#lidBot'], { y: 0, duration: 0.11, ease: 'power1.in' }, 0)
+        .to('#lidTop', { y: -LID_Y, duration: 0.18, ease: 'power1.out' })
+        .to('#lidBot', { y:  LID_Y, duration: 0.18, ease: 'power1.out' }, '<');
+    }, 4500 + Math.random() * 9000);
+  }
+  openTl.eventCallback('onComplete', blink);
+
+  /* ── Generic fade-up helper ────────────────────────── */
+  function reveal(el, extra) {
+    gsap.from(el, Object.assign({
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+      y: 34, opacity: 0, duration: 0.78, ease: 'power2.out',
+    }, extra || {}));
+  }
+
+  /* ── They Know ─────────────────────────────────────── */
+  gsap.from('#dataList .data-item', {
+    scrollTrigger: { trigger: '#dataList', start: 'top 80%' },
+    y: 28, opacity: 0, stagger: 0.13, duration: 0.65, ease: 'power2.out',
+  });
+  reveal('#dataFooter');
+
+  /* ── Shutdowns ─────────────────────────────────────── */
+  // Counter
+  ScrollTrigger.create({
+    trigger: '#shutdownCount',
+    start: 'top 72%',
+    once: true,
+    onEnter() {
+      const el = document.getElementById('shutdownCount');
+      let n = 0;
+      const tick = () => {
+        n = Math.min(283, n + Math.ceil((283 - n) / 7) + 1);
+        el.textContent = n;
+        if (n < 283) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    },
+  });
+
+  gsap.from('#incidentList .incident', {
+    scrollTrigger: { trigger: '#incidentList', start: 'top 78%' },
+    y: 26, opacity: 0, stagger: 0.16, duration: 0.7, ease: 'power2.out',
+  });
+  reveal('#shutdownAlert');
+
+  /* ── Personal ──────────────────────────────────────── */
+  ['#q1','#q2','#qRule','#qFollow','#qAttr'].forEach((sel, i) =>
+    reveal(sel, { delay: i * 0.08 })
+  );
+
+  /* ── Curriculum ────────────────────────────────────── */
+  reveal('#curriculumIntro');
+  gsap.from('#cardGrid .sess-card', {
+    scrollTrigger: { trigger: '#cardGrid', start: 'top 78%' },
+    y: 26, opacity: 0, stagger: 0.09, duration: 0.65, ease: 'power2.out',
+  });
+
+  /* ── Everyone ──────────────────────────────────────── */
+  reveal('#bigClaim');
+  reveal('#everyoneBody', { delay: 0.15 });
+
+  /* ── Join ──────────────────────────────────────────── */
+  ['#joinHeading','#joinMeta','#joinContacts','#joinFoot'].forEach((sel, i) =>
+    reveal(sel, { delay: i * 0.1 })
+  );
+</script>
+
+</body>
+</html>

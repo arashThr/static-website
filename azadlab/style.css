@@ -62,7 +62,7 @@ html, body {
 }
 
 .notif-body {
-  font-size: 12px; line-height: 1.8;
+  font-size: 13px; line-height: 1.8;
   color: var(--dim); margin-bottom: 32px;
 }
 
@@ -159,7 +159,7 @@ html, body {
 }
 .term-body {
   padding: 9px 14px 11px;
-  font-size: 12px; line-height: 1.5;
+  font-size: 13px; line-height: 1.5;
   color: var(--text);
 }
 .term-prompt { color: var(--green); font-weight: 500; }
@@ -214,14 +214,14 @@ html, body {
 /* ── File text content ──────────────────────────────── */
 .file-text {
   font-family: var(--font);
-  font-size: 12.5px; line-height: 1.75;
+  font-size: 14px; line-height: 1.8;
   color: var(--text);
   white-space: pre-wrap; word-break: break-word;
 }
 
 /* ── Sessions folder grid ───────────────────────────── */
 .folder-meta {
-  font-size: 10px; color: var(--dim);
+  font-size: 11px; color: var(--dim);
   margin-bottom: 16px; padding-bottom: 10px;
   border-bottom: 1px solid #191f1f;
   letter-spacing: .05em;
@@ -239,7 +239,7 @@ html, body {
   border: 1px solid transparent;
   border-radius: 4px; cursor: pointer;
   color: var(--text); font-family: var(--font);
-  font-size: 9px; text-align: center; line-height: 1.4;
+  font-size: 10px; text-align: center; line-height: 1.4;
   transition: background .15s, border-color .15s, color .15s;
 }
 .sess-icon:hover, .sess-icon:focus {
@@ -272,7 +272,7 @@ html, body {
 .winbox.net-alert .wb-title { color: #c05050 !important; }
 .winbox.net-alert .wb-body  { background: #0e0808 !important; }
 
-.net-alert-content { font-size: 12.5px; line-height: 1.8; color: var(--text); }
+.net-alert-content { font-size: 14px; line-height: 1.8; color: var(--text); }
 .net-alert-status  { color: #e05050; font-weight: 700; letter-spacing: .1em; margin-bottom: 14px; }
 .net-alert-location { color: var(--dim); font-size: 11px; margin-bottom: 18px; }
 .net-alert-body    { margin-bottom: 20px; }
