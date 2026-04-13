@@ -595,7 +595,6 @@ function openWinBox(key, cfg) {
     width: cfg.width,
     height: cfg.height,
     x: cfg.x, y: cfg.y,
-    class: 'azad-win',
     onclose() { delete openWins[key]; },
   });
 }
@@ -641,14 +640,14 @@ function openSessionsFolder() {
   }, 50);
 }
 
-/* Desktop icon clicks */
-document.getElementById('iconGrid').addEventListener('click', e => {
-  const btn = e.target.closest('[data-win]');
-  if (!btn) return;
-  const key = btn.dataset.win;
-  if (key === 'sessions') { openSessionsFolder(); return; }
-  const cfg = WINDOWS[key];
-  if (cfg) openWinBox(key, cfg);
+/* Desktop icon clicks — direct listeners avoid SVG child target issues */
+document.querySelectorAll('#iconGrid [data-win]').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const key = icon.dataset.win;
+    if (key === 'sessions') { openSessionsFolder(); return; }
+    const cfg = WINDOWS[key];
+    if (cfg) openWinBox(key, cfg);
+  });
 });
 
 /* Keyboard: Escape closes topmost window */
