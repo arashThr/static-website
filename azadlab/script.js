@@ -507,12 +507,12 @@ across 72 countries.
 Source: Access Now #KeepItOn coalition
 ──────────────────────────────────────────────
 
-[PERSONAL NOTE — Arash, 2024]
+[PERSONAL NOTE — Arash, 2026]
 
-I was in Iran during the 2019 and 2022 shutdowns.
+I was in Iran during the November 2019 shutdown.
 
-The first time, I found out from a relative
-calling from abroad: "can you see the news?"
+I found out from a relative calling from abroad:
+"can you see the news?"
 I couldn't. Nobody inside could.
 
 You learn quickly what you should have set up
@@ -520,12 +520,19 @@ before. The VPN that only works with internet.
 The backup that lives in the cloud. The Signal
 messages queued, unsent.
 
-The second time I was better prepared.
-Not because I was smarter.
-Because I had done the sessions.
+──────────────────────────────────────────────
+
+As of writing this, Iran's internet has been
+cut off for over 40 days.
+
+Not tied to a specific protest. Not a temporary
+measure. Just gone. 40 days and counting.
+
+I have family inside. You probably know someone
+who does too.
 
 These tools are not paranoia.
-They are what the next 72 hours might require.
+They are what right now requires.
 
 ──────────────────────────────────────────────</pre>`,
   },
