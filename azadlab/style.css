@@ -50,12 +50,6 @@ html, body {
   animation: pulse 2.5s ease-in-out infinite;
 }
 
-.notif-eye {
-  font-size: 48px;
-  margin-bottom: 16px;
-  filter: grayscale(1) brightness(0.7);
-}
-
 .notif-alert {
   font-size: 10px; letter-spacing: 0.3em;
   color: var(--red); margin-bottom: 12px;
@@ -341,7 +335,7 @@ html, body {
     border-radius: 0 !important;
   }
   .winbox .wb-header { border-radius: 0 !important; }
-  .winbox .wb-body   { height: calc(100dvh - 36px) !important; }
+  .winbox .wb-body   { height: calc(100dvh - 36px) !important; overflow-x: hidden !important; }
 
   .session-grid { grid-template-columns: repeat(2, 1fr); }
 }
