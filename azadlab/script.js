@@ -1,170 +1,535 @@
-/* ════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    AZAD LAB — script.js
-   ════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════ */
 
 'use strict';
 
-/* ── Session data ───────────────────────────────────────────── */
-const sessions = [
+/* ══════════════════════════════════════════════════════
+   1. SURVEILLANCE EYE ANIMATION
+   ══════════════════════════════════════════════════════ */
+
+class Eye {
+  constructor(x, y, r, tilt) {
+    this.x = x; this.y = y; this.r = r;
+    this.tilt = tilt || (Math.random() - .5) * .45;
+    this.blink = 0;
+    this.phase = 'idle';
+    this.timer = 80 + Math.random() * 320;
+    this.mx = 0; this.my = 0;
+  }
+
+  update(mx, my) {
+    this.mx = mx; this.my = my;
+    this.timer--;
+
+    if (this.phase === 'idle' && this.timer <= 0) {
+      this.phase = 'closing'; this.timer = 12;
+    } else if (this.phase === 'closing') {
+      this.blink = Math.min(1, this.blink + .14);
+      if (this.blink >= 1) { this.phase = 'pause'; this.timer = 6; }
+    } else if (this.phase === 'pause' && this.timer <= 0) {
+      this.phase = 'opening';
+    } else if (this.phase === 'opening') {
+      this.blink = Math.max(0, this.blink - .1);
+      if (this.blink <= 0) {
+        this.phase = 'idle';
+        this.timer = 120 + Math.random() * 400;
+      }
+    }
+  }
+
+  draw(ctx) {
+    const { x, y, r, blink, tilt, mx, my } = this;
+    const ew = r * 2.5;
+    const eh = r * (1 - blink * .97);
+    if (eh < .4) return;
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(tilt);
+
+    /* clip to eye shape */
+    ctx.beginPath();
+    ctx.ellipse(0, 0, ew, eh, 0, 0, Math.PI * 2);
+    ctx.clip();
+
+    /* sclera */
+    ctx.fillStyle = '#0b0b0b';
+    ctx.fillRect(-ew - 1, -eh - 1, ew * 2 + 2, eh * 2 + 2);
+
+    /* iris offset (mouse tracking — transform into eye-local coords) */
+    const cosT = Math.cos(-tilt), sinT = Math.sin(-tilt);
+    const ldx = (mx - x) * cosT - (my - y) * sinT;
+    const ldy = (mx - x) * sinT + (my - y) * cosT;
+    const dist = Math.hypot(ldx, ldy);
+    const maxOff = r * .3;
+    const off = Math.min(dist / 10, maxOff);
+    const ang = Math.atan2(ldy, ldx);
+    const ix = Math.cos(ang) * off;
+    const iy = Math.sin(ang) * off;
+
+    /* iris gradient */
+    const g = ctx.createRadialGradient(ix * .5, iy * .5, 0, ix, iy, r * .88);
+    g.addColorStop(0, '#500808');
+    g.addColorStop(.45, '#280404');
+    g.addColorStop(1, '#0e0101');
+    ctx.beginPath();
+    ctx.arc(ix, iy, r * .85, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    /* iris ring */
+    ctx.beginPath();
+    ctx.arc(ix, iy, r * .85, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(110,25,25,.35)';
+    ctx.lineWidth = .8;
+    ctx.stroke();
+
+    /* pupil */
+    ctx.beginPath();
+    ctx.arc(ix, iy, r * .38, 0, Math.PI * 2);
+    ctx.fillStyle = '#000';
+    ctx.fill();
+
+    /* specular highlight */
+    ctx.beginPath();
+    ctx.arc(ix + r * .18, iy - r * .18, r * .07, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,160,80,.13)';
+    ctx.fill();
+
+    ctx.restore();
+
+    /* eyelid outline + glow */
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(tilt);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, ew, eh, 0, 0, Math.PI * 2);
+    ctx.shadowColor = 'rgba(160,20,20,.22)';
+    ctx.shadowBlur = 18;
+    ctx.strokeStyle = 'rgba(80,25,25,.7)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+(function initEyes() {
+  const canvas = document.getElementById('eyeCanvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  let W, H, eyes = [], mx = 0, my = 0, raf;
+
+  function setup() {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width  = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+    buildEyes();
+  }
+
+  function buildEyes() {
+    eyes = [];
+    const area = W * H;
+    const count = Math.min(18, Math.max(6, Math.floor(area / 38000)));
+    const cols = Math.ceil(Math.sqrt(count * W / H));
+    const rows = Math.ceil(count / cols);
+    const cw = W / cols, ch = H / rows;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (eyes.length >= count) break;
+        const x = (c + .5) * cw + (Math.random() - .5) * cw * .45;
+        const y = (r + .5) * ch + (Math.random() - .5) * ch * .45;
+        const radius = cw * (.09 + Math.random() * .08);
+        eyes.push(new Eye(x, y, radius));
+      }
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    eyes.forEach(e => { e.update(mx, my); e.draw(ctx); });
+    raf = requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  window.addEventListener('touchmove', e => {
+    mx = e.touches[0].clientX; my = e.touches[0].clientY;
+  }, { passive: true });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setup, 200);
+  });
+
+  setup();
+  loop();
+})();
+
+
+/* ══════════════════════════════════════════════════════
+   2. NOTIFICATION
+   ══════════════════════════════════════════════════════ */
+document.getElementById('notifClose').addEventListener('click', () => {
+  document.getElementById('notifOverlay').style.display = 'none';
+});
+
+
+/* ══════════════════════════════════════════════════════
+   3. TERMINAL TYPEWRITER
+   ══════════════════════════════════════════════════════ */
+(function initTerminal() {
+  const msgs = [
+    'still online...',
+    'your data. your rules.',
+    'sudo apt install freedom',
+    'encryption is not a crime',
+    'trust no one. verify everything.',
+    'there is no cloud.',
+    'azad (آزاد) :: free',
+    'rm -rf /surveillance',
+    'knowledge is infrastructure',
+    'uptime: always',
+  ];
+  const el = document.getElementById('termMsg');
+  let idx = 0, pos = 0, typing = true;
+
+  function tick() {
+    const msg = msgs[idx];
+    if (typing) {
+      el.textContent = msg.slice(0, pos++);
+      if (pos > msg.length) { typing = false; setTimeout(tick, 2400); return; }
+      setTimeout(tick, 55 + Math.random() * 45);
+    } else {
+      el.textContent = msg.slice(0, --pos);
+      if (pos <= 0) {
+        idx = (idx + 1) % msgs.length; typing = true;
+        setTimeout(tick, 420); return;
+      }
+      setTimeout(tick, 28);
+    }
+  }
+  setTimeout(tick, 1200);
+})();
+
+
+/* ══════════════════════════════════════════════════════
+   4. CLOCK
+   ══════════════════════════════════════════════════════ */
+(function initClock() {
+  const el = document.getElementById('clock');
+  const update = () => {
+    const n = new Date();
+    el.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  };
+  update(); setInterval(update, 10000);
+})();
+
+
+/* ══════════════════════════════════════════════════════
+   5. WINDOW CONTENT
+   ══════════════════════════════════════════════════════ */
+
+const FILE_ICON_SVG = `<svg viewBox="0 0 32 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 2h18l9 9v25H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M21 2v9h9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="17" x2="24" y2="17" stroke="currentColor" stroke-width="1" opacity=".5"/><line x1="8" y1="22" x2="24" y2="22" stroke="currentColor" stroke-width="1" opacity=".5"/><line x1="8" y1="27" x2="18" y2="27" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>`;
+
+const WINDOWS = {
+
+  readme: {
+    title: 'README.txt',
+    width: 540, height: 460,
+    x: 140, y: 70,
+    content: `<pre class="file-text">AZAD LAB :: README.txt
+══════════════════════════════════════════════
+
+Azad (آزاد) means "free" in Farsi.
+
+We believe digital freedom isn't theoretical —
+it's practical. It's the difference between
+owning your data and renting access to it.
+Between communicating privately and performing
+privacy in public.
+
+This is a hands-on workshop community. We teach
+real tools, real setups, real configurations.
+Not slides. Not theory. You leave with something
+running.
+
+We exist because the conditions that make digital
+sovereignty urgent — internet shutdowns, state
+surveillance, corporate data harvesting,
+infrastructure collapse — are no longer
+hypothetical. They're happening now, in
+democracies and authoritarian states alike.
+
+This is for everyone: the developer who wants
+off Big Tech, the activist who needs operational
+security, the parent who doesn't want their
+family's photos in someone else's cloud, the
+curious person who just wants to understand
+how this all works.
+
+You don't need to trust governments or
+corporations to keep your digital life safe,
+private, and running.
+
+You just need to run it yourself.
+
+──────────────────────────────────────────────
+"The tools that protect the most vulnerable
+ protect everyone."
+──────────────────────────────────────────────
+</pre>`,
+  },
+
+  about: {
+    title: 'ABOUT.txt',
+    width: 540, height: 440,
+    x: 160, y: 90,
+    content: `<pre class="file-text">AZAD LAB :: ABOUT.txt
+══════════════════════════════════════════════
+
+Founded by Arash — software engineer,
+Stockholm-based, Iranian by background.
+
+──────────────────────────────────────────────
+
+The Iranian context matters, not as identity
+branding, but as source material.
+
+Iran has some of the most sophisticated internet
+censorship infrastructure on earth. Iranians have
+lived through shutdowns, throttling, targeted
+surveillance, and the total weaponization of
+digital infrastructure against civilians.
+
+Growing up in that environment, the tools in
+this curriculum weren't lifestyle choices —
+they were necessities. VPNs, encrypted
+communications, alternative DNS, offline-first
+thinking.
+
+That experience is why this curriculum is built
+the way it is: no fluff, no hypotheticals,
+just what actually works when stakes are real.
+
+──────────────────────────────────────────────
+
+Based in Stockholm, Azad Lab runs workshops for
+anyone who wants to understand and reclaim
+their digital life.
+
+Sweden's NATO accession, the Russia-Ukraine war,
+and the normalization of mass surveillance have
+made this conversation urgent across Europe
+in a new way.
+
+The tools work. Come learn them.
+
+──────────────────────────────────────────────
+</pre>`,
+  },
+
+  manifesto: {
+    title: 'MANIFESTO.txt',
+    width: 560, height: 500,
+    x: 200, y: 60,
+    content: `<pre class="file-text">AZAD LAB :: MANIFESTO.txt
+══════════════════════════════════════════════
+
+WHAT THEY KNOW ABOUT YOU RIGHT NOW
+
+Your ISP logs every domain you visit.
+Your phone maps your movements 24 hours a day.
+Your smart TV has a microphone.
+Your email provider reads your messages.
+Your browser fingerprint is unique.
+Your credit card tracks every purchase.
+Your metadata reveals more than your content.
+
+This is not paranoia. This is infrastructure.
+
+──────────────────────────────────────────────
+
+WHAT CHANGED
+
+For decades, mass surveillance was theoretical —
+something that happened to dissidents, activists,
+people "with something to hide."
+
+Then Snowden showed us the architecture.
+Then Cambridge Analytica showed us the use.
+Then Iran shut off the internet.
+Then Russia weaponized platforms.
+Then governments started buying the data
+that corporations collected on their behalf.
+
+The threat model changed. So should you.
+
+──────────────────────────────────────────────
+
+WHAT WE BELIEVE
+
+Privacy is not about hiding.
+It's about control.
+It's about having the right to a private thought,
+a private conversation, a private life.
+
+Digital sovereignty is not a luxury.
+It's the difference between infrastructure
+that serves you and infrastructure that reports
+you to whoever pays or coerces enough.
+
+We don't ask you to trust us.
+We show you how to not need to trust anyone.
+
+──────────────────────────────────────────────
+
+THE ANSWER IS NOT BETTER TERMS OF SERVICE.
+
+The answer is running your own stack.
+
+──────────────────────────────────────────────
+</pre>`,
+  },
+
+  join: {
+    title: 'JOIN.txt',
+    width: 480, height: 360,
+    x: 260, y: 110,
+    content: `<pre class="file-text">AZAD LAB :: JOIN.txt
+══════════════════════════════════════════════
+
+Workshop sessions run monthly in Stockholm.
+Remote participation available for all sessions.
+
+No prior technical experience required.
+Bring a laptop. Everything else is provided.
+
+──────────────────────────────────────────────
+
+  TELEGRAM   t.me/azadlab
+  EMAIL      hello@azadlab.dev
+
+──────────────────────────────────────────────
+
+If you want to bring Azad Lab to your city
+or organization — reach out.
+
+The curriculum is open source.
+The knowledge belongs to everyone.
+
+──────────────────────────────────────────────
+</pre>`,
+  },
+};
+
+const SESSIONS = [
   {
-    filename: '01_walled_garden.txt',
-    title:    'SESSION 01 :: ESCAPE THE WALLED GARDEN',
-    content:
-`SESSION 01 :: ESCAPE THE WALLED GARDEN
+    file: '01_walled_garden.txt',
+    content: `SESSION 01 :: ESCAPE THE WALLED GARDEN
 ══════════════════════════════════════════════
 
 Why Linux. Why now.
 
-Big Tech built beautiful cages. Everything
-works seamlessly — as long as you stay inside.
-Your phone, your laptop, your cloud storage:
-they are products designed to harvest you,
-not serve you. This session is about walking out.
+Big Tech built beautiful cages. Everything works
+seamlessly — as long as you stay inside. Your
+phone, laptop, cloud storage: products designed
+to harvest you, not serve you.
 
 WHAT WE COVER:
   · Why Linux matters for digital sovereignty
   · Install Ubuntu 24.04 or Fedora 41
-    on real hardware (live USB walkthrough)
   · The terminal: your new home base
-  · Package managers — installing software
-    without an app store that controls you
+  · Package managers — software without an
+    app store that controls what you run
   · Filesystem layout and why it matters
-  · Basic shell navigation and file operations
 
 WHAT YOU LEAVE WITH:
-  A working Linux installation. A terminal
-  you're not afraid of. The mental model that
-  every other session builds on.
+  A working Linux install. A terminal you're
+  not afraid of. The mental model every other
+  session builds on.
 
-PRE-REQUISITES:
-  None. Just a laptop and willingness.
-
-──────────────────────────────────────────────
-TOOLS: Ubuntu 24.04 · Fedora 41 · bash
-       apt / dnf · ls / cd / cat / grep
-──────────────────────────────────────────────`,
+TOOLS: Ubuntu · Fedora · bash · apt/dnf`,
   },
   {
-    filename: '02_own_your_media.txt',
-    title:    'SESSION 02 :: OWN YOUR PHOTOS & MEDIA',
-    content:
-`SESSION 02 :: OWN YOUR PHOTOS & MEDIA
+    file: '02_own_your_media.txt',
+    content: `SESSION 02 :: OWN YOUR PHOTOS & MEDIA
 ══════════════════════════════════════════════
 
 Your memories don't belong in a corporation's
-datacentre. This session teaches you to run
-your own photo library and media server —
-Google Photos and Netflix, but yours.
+datacentre. Run your own photo library and
+media server — Google Photos and Netflix,
+but yours.
 
 WHAT WE COVER:
-  · Introduction to Docker and containers
-    (the concept, not just the commands)
+  · Docker and containers (the concept)
   · Self-host Immich: your private Google Photos
-    — face recognition, albums, mobile backup,
-    all running on your own hardware
-  · Self-host Jellyfin: your personal streaming
-    server for movies, TV, music
-  · Choosing hardware: old laptop, Raspberry Pi,
-    or a cheap VPS — what fits your setup
+    — face recognition, mobile backup, all local
+  · Self-host Jellyfin: personal streaming server
+  · Hardware options: old laptop, Pi, VPS
   · Backup strategy: the 3-2-1 rule applied
 
 WHAT YOU LEAVE WITH:
-  A running Immich instance with your photos
-  already syncing. Jellyfin set up and streaming.
-  An understanding of how Docker actually works.
+  Running Immich with photos syncing. Jellyfin
+  streaming. An understanding of how Docker
+  actually works.
 
-PRE-REQUISITES:
-  Session 01, or existing Linux comfort.
-
-──────────────────────────────────────────────
-TOOLS: Docker · Docker Compose
-       Immich · Jellyfin
-──────────────────────────────────────────────`,
+TOOLS: Docker · Immich · Jellyfin`,
   },
   {
-    filename: '03_access_anywhere.txt',
-    title:    'SESSION 03 :: ACCESS IT ANYWHERE, SAFELY',
-    content:
-`SESSION 03 :: ACCESS IT ANYWHERE, SAFELY
+    file: '03_access_anywhere.txt',
+    content: `SESSION 03 :: ACCESS IT ANYWHERE, SAFELY
 ══════════════════════════════════════════════
 
 You've built something. Now connect to it —
 privately, from anywhere, without opening
-ports to the whole internet.
+ports to the entire internet.
 
 WHAT WE COVER:
-  · Tailscale: a private mesh VPN built on
-    WireGuard. Connect all your devices in
-    minutes. No exposed ports, no public IPs.
-  · Hetzner VPS setup: cheap, reliable,
-    European hosting for your services
+  · Tailscale: private mesh VPN on WireGuard
+  · Hetzner VPS: cheap, reliable, European
   · Caddy reverse proxy: automatic HTTPS,
-    clean routing, minimal configuration
-  · DNS and domain basics: pointing names
-    at your infrastructure
-  · Putting it together: access your Immich
-    and Jellyfin securely from your phone,
-    anywhere in the world
+    clean routing, minimal config
+  · DNS basics: pointing names at your infra
+  · Putting it together: access Immich and
+    Jellyfin from your phone, anywhere
 
 WHAT YOU LEAVE WITH:
   A Tailscale network connecting your devices.
-  A VPS with Caddy serving your services over
-  HTTPS with valid certificates.
+  A VPS with Caddy serving your services
+  over HTTPS with valid certs.
 
-PRE-REQUISITES:
-  Session 02 (having services to expose helps).
-
-──────────────────────────────────────────────
-TOOLS: Tailscale · WireGuard · Hetzner VPS
-       Caddy · Let's Encrypt · DNS basics
-──────────────────────────────────────────────`,
+TOOLS: Tailscale · WireGuard · Caddy · Hetzner`,
   },
   {
-    filename: '04_phone_spying.txt',
-    title:    'SESSION 04 :: YOUR PHONE IS SPYING ON YOU',
-    content:
-`SESSION 04 :: YOUR PHONE IS SPYING ON YOU
+    file: '04_phone_spying.txt',
+    content: `SESSION 04 :: YOUR PHONE IS SPYING ON YOU
 ══════════════════════════════════════════════
 
 Your phone is the most intimate surveillance
 device ever invented. It knows where you sleep,
-who you love, what you fear. This session is
-about taking it back.
+who you love, what you fear. Take it back.
 
 WHAT WE COVER:
   · What stock Android and iOS actually collect
-    (and who gets it)
-  · GrapheneOS: hardened Android for Pixels,
-    installation walkthrough
-  · CalyxOS: an alternative for broader devices
-  · F-Droid: an app store of open-source apps
-    (no Google Play required)
-  · Communication: Signal, Session, Matrix/Element
-  · Running local LLMs on-device:
-    llama.cpp and Gemma — AI that never leaves
-    your phone, no cloud required
-  · Location hygiene, permissions audit, and
-    what to do when you can't change the OS
+  · GrapheneOS: hardened Android for Pixels
+  · CalyxOS: an alternative for other devices
+  · F-Droid: open-source app store, no Google
+  · Signal, Session, Matrix/Element
+  · Local LLMs: llama.cpp + Gemma on-device —
+    AI that never leaves your phone
 
 WHAT YOU LEAVE WITH:
-  A concrete plan for your device. For those
-  with a compatible Pixel: a flashed GrapheneOS
-  install. For everyone: a permissions audit
-  and a list of app replacements.
+  A concrete plan for your device. For Pixel
+  owners: a flashed GrapheneOS install.
+  For everyone: an audited, hardened phone.
 
-PRE-REQUISITES:
-  None specific — though any session helps.
-
-──────────────────────────────────────────────
-TOOLS: GrapheneOS · CalyxOS · F-Droid
-       Signal · Element · llama.cpp · Gemma
-──────────────────────────────────────────────`,
+TOOLS: GrapheneOS · F-Droid · Signal · llama.cpp`,
   },
   {
-    filename: '05_nas_home_auto.txt',
-    title:    'SESSION 05 :: YOUR OWN NAS & HOME AUTOMATION',
-    content:
-`SESSION 05 :: YOUR OWN NAS & HOME AUTOMATION
+    file: '05_nas_home_auto.txt',
+    content: `SESSION 05 :: NAS & HOME AUTOMATION
 ══════════════════════════════════════════════
 
 Your home should work for you, not report
@@ -172,361 +537,123 @@ to Amazon or Google. Build a local-first smart
 home and a proper network storage server.
 
 WHAT WE COVER:
-  · Raspberry Pi setup: from bare board to
-    running server in an afternoon
+  · Raspberry Pi: from bare board to server
   · TrueNAS SCALE: professional NAS software,
-    free, on your own hardware — RAID, snapshots,
-    SMB shares, S3-compatible storage
-  · Home Assistant: open-source home automation
-    that runs entirely offline
-  · Integrations: lights, climate, sensors,
-    automations — without cloud dependencies
+    free — RAID, snapshots, SMB, S3 storage
+  · Home Assistant: open-source home automation,
+    runs entirely offline
+  · Lights, climate, sensors, automations
+    without cloud dependencies
   · Local voice control (no Alexa, no Google)
-  · Connecting everything over your Tailscale
-    network from Session 03
 
 WHAT YOU LEAVE WITH:
-  A Home Assistant instance running automations.
-  Understanding of TrueNAS and how to design
-  a home storage setup.
+  Home Assistant running automations. A design
+  for your home storage setup.
 
-PRE-REQUISITES:
-  Sessions 01-03 are helpful but not required.
-
-──────────────────────────────────────────────
-TOOLS: Raspberry Pi · TrueNAS SCALE
-       Home Assistant · Zigbee / Z-Wave
-──────────────────────────────────────────────`,
+TOOLS: Raspberry Pi · TrueNAS · Home Assistant`,
   },
   {
-    filename: '06_digital_resilience.txt',
-    title:    'SESSION 06 :: DIGITAL RESILIENCE',
-    content:
-`SESSION 06 :: DIGITAL RESILIENCE
+    file: '06_digital_resilience.txt',
+    content: `SESSION 06 :: DIGITAL RESILIENCE
 ══════════════════════════════════════════════
 
 When infrastructure fails — power cut, ISP down,
-government shutdown, natural disaster — what
-still works? This session is about building
-systems that survive.
+government shutdown, disaster — what still works?
+Build systems that survive.
 
 WHAT WE COVER:
-  · Offline-first thinking: design for
-    disconnection, not connectivity
-  · Encrypted backups with Borg and Restic:
-    automated, versioned, tested
-  · Mesh networking basics: Meshtastic,
-    LoRa radio, offline communication
-    when the internet is gone
-  · Syncthing: peer-to-peer file sync,
-    no servers required
-  · What Iran, Ukraine, and Myanmar taught us
-    about infrastructure collapse and what
-    ordinary people did to stay connected
-  · Your personal resilience plan:
-    what to set up this week
+  · Offline-first design: build for disconnection
+  · Encrypted backups with Borg and Restic
+  · Mesh networking: Meshtastic + LoRa radio
+    for communication when internet is gone
+  · Syncthing: peer-to-peer sync, no servers
+  · What Iran, Ukraine, Myanmar taught us about
+    infrastructure collapse — and what worked
+  · Your personal resilience checklist
 
 WHAT YOU LEAVE WITH:
-  A running encrypted backup solution.
-  An understanding of offline and mesh tools.
-  A concrete personal resilience checklist.
+  A running encrypted backup solution. An
+  understanding of offline and mesh tools.
+  A concrete personal resilience plan.
 
-PRE-REQUISITES:
-  All previous sessions recommended.
-  But everyone is welcome.
-
-──────────────────────────────────────────────
-TOOLS: Borg · Restic · Syncthing
-       Meshtastic · LoRa · Offline maps
-──────────────────────────────────────────────`,
+TOOLS: Borg · Restic · Syncthing · Meshtastic`,
   },
 ];
 
-/* ── Window management ──────────────────────────────────────── */
-let zCounter = 100;
-let openOffset = 0;
-let activeDrag = null;
 
-const basePositions = {
-  'readme':   { top: 72,  left: 140 },
-  'about':    { top: 88,  left: 200 },
-  'sessions': { top: 58,  left: 110 },
-  'join':     { top: 96,  left: 260 },
-};
+/* ══════════════════════════════════════════════════════
+   6. WINBOX WINDOW MANAGEMENT
+   ══════════════════════════════════════════════════════ */
+const openWins = {};
 
-function bringToFront(win) {
-  zCounter++;
-  win.style.zIndex = zCounter;
-  document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-  win.classList.add('active');
+function openWinBox(key, cfg) {
+  if (openWins[key]) { openWins[key].restore(); openWins[key].focus(); return; }
+
+  openWins[key] = new WinBox({
+    title: cfg.title,
+    html:  cfg.content,
+    width: cfg.width,
+    height: cfg.height,
+    x: cfg.x, y: cfg.y,
+    class: 'azad-win',
+    onclose() { delete openWins[key]; },
+  });
 }
 
-function openWindow(id, defaultPos) {
-  const win = document.getElementById('win-' + id);
-  if (!win) return;
-
-  if (win.style.display === 'flex') {
-    bringToFront(win);
-    return;
-  }
-
-  win.style.display = 'flex';
-  bringToFront(win);
-
-  if (!win.dataset.positioned) {
-    const pos = defaultPos || basePositions[id] || {
-      top:  80 + (openOffset % 5) * 28,
-      left: 140 + (openOffset % 5) * 28,
-    };
-    openOffset++;
-    win.style.top  = pos.top  + 'px';
-    win.style.left = pos.left + 'px';
-    win.dataset.positioned = '1';
-  }
+function openSessionWindow(i) {
+  const s = SESSIONS[i];
+  const key = 'session-' + i;
+  if (openWins[key]) { openWins[key].restore(); openWins[key].focus(); return; }
+  openWins[key] = new WinBox({
+    title: s.file,
+    html: `<pre class="file-text">${s.content}</pre>`,
+    width: 520, height: 460,
+    x: 160 + i * 18, y: 80 + i * 18,
+    onclose() { delete openWins[key]; },
+  });
 }
 
-function closeWindow(id) {
-  const win = document.getElementById('win-' + id);
-  if (!win) return;
-  win.style.display = 'none';
-}
+function openSessionsFolder() {
+  const key = 'sessions';
+  if (openWins[key]) { openWins[key].restore(); openWins[key].focus(); return; }
 
-/* ── Drag ───────────────────────────────────────────────────── */
-document.addEventListener('mousemove', (e) => {
-  if (!activeDrag) return;
-  const { win, startX, startY, winStartX, winStartY } = activeDrag;
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
-  const vw = window.innerWidth;
-  const vhVal = window.innerHeight;
-  const newLeft = Math.max(-win.offsetWidth + 80, Math.min(vw - 80, winStartX + dx));
-  const newTop  = Math.max(0, Math.min(vhVal - 36, winStartY + dy));
-  win.style.left = newLeft + 'px';
-  win.style.top  = newTop  + 'px';
-});
+  const grid = SESSIONS.map((s, i) =>
+    `<button class="sess-icon" data-si="${i}">
+      ${FILE_ICON_SVG}
+      <span>${s.file}</span>
+    </button>`
+  ).join('');
 
-document.addEventListener('mouseup', () => {
-  activeDrag = null;
-  document.body.style.cursor = '';
-});
-
-function initDrag(titlebar) {
-  titlebar.addEventListener('mousedown', (e) => {
-    if (e.target.closest('.wc-btn')) return;
-    const win = titlebar.closest('.window');
-    bringToFront(win);
-    const rect = win.getBoundingClientRect();
-    activeDrag = {
-      win,
-      startX: e.clientX,
-      startY: e.clientY,
-      winStartX: rect.left,
-      winStartY: rect.top,
-    };
-    document.body.style.cursor = 'move';
-    e.preventDefault();
+  openWins[key] = new WinBox({
+    title: 'SESSIONS/',
+    html: `<div class="folder-meta">~/SESSIONS — 6 items — click to open</div>
+           <div class="session-grid">${grid}</div>`,
+    width: 540, height: 340,
+    x: 110, y: 60,
+    onclose() { delete openWins[key]; },
   });
 
-  /* Touch drag support */
-  titlebar.addEventListener('touchstart', (e) => {
-    if (e.target.closest('.wc-btn')) return;
-    if (window.innerWidth < 768) return; /* no drag on mobile */
-    const touch = e.touches[0];
-    const win = titlebar.closest('.window');
-    bringToFront(win);
-    const rect = win.getBoundingClientRect();
-    activeDrag = {
-      win,
-      startX: touch.clientX,
-      startY: touch.clientY,
-      winStartX: rect.left,
-      winStartY: rect.top,
-    };
-    e.preventDefault();
-  }, { passive: false });
-}
-
-document.addEventListener('touchmove', (e) => {
-  if (!activeDrag) return;
-  const touch = e.touches[0];
-  const { win, startX, startY, winStartX, winStartY } = activeDrag;
-  const dx = touch.clientX - startX;
-  const dy = touch.clientY - startY;
-  win.style.left = Math.max(0, winStartX + dx) + 'px';
-  win.style.top  = Math.max(0, winStartY + dy) + 'px';
-  e.preventDefault();
-}, { passive: false });
-
-document.addEventListener('touchend', () => { activeDrag = null; });
-
-/* ── Click on desktop icons ─────────────────────────────────── */
-document.querySelectorAll('.icon[data-target]').forEach((icon) => {
-  function activate() {
-    const target = icon.dataset.target;
-    icon.classList.add('selected');
-    setTimeout(() => icon.classList.remove('selected'), 300);
-    openWindow(target);
-  }
-  icon.addEventListener('click', activate);
-  icon.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
-  });
-});
-
-/* ── Window close buttons ───────────────────────────────────── */
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.wc-close');
-  if (!btn) return;
-  const id = btn.dataset.close;
-  if (id) closeWindow(id);
-});
-
-/* ── Bring window to front on click ────────────────────────── */
-document.addEventListener('mousedown', (e) => {
-  const win = e.target.closest('.window');
-  if (win) bringToFront(win);
-}, true);
-
-/* ── Init titlebars for drag ────────────────────────────────── */
-document.querySelectorAll('.window-titlebar').forEach(initDrag);
-
-/* ── Sessions folder ────────────────────────────────────────── */
-function buildSessionsFolder() {
-  const grid = document.getElementById('sessionIconsGrid');
-  if (!grid) return;
-
-  sessions.forEach((s, i) => {
-    const icon = document.createElement('div');
-    icon.className = 'session-icon';
-    icon.setAttribute('role', 'button');
-    icon.setAttribute('tabindex', '0');
-    icon.setAttribute('data-session', i);
-    icon.innerHTML = `
-      <svg class="icon-svg" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 2 L22 2 L30 10 L30 38 L4 38 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M22 2 L22 10 L30 10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-        <line x1="9" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="1" stroke-opacity="0.5"/>
-        <line x1="9" y1="23" x2="25" y2="23" stroke="currentColor" stroke-width="1" stroke-opacity="0.5"/>
-        <line x1="9" y1="28" x2="20" y2="28" stroke="currentColor" stroke-width="1" stroke-opacity="0.5"/>
-      </svg>
-      <span class="icon-label">${s.filename}</span>
-    `;
-
-    function activate() {
-      openSessionWindow(i);
-    }
-    icon.addEventListener('click', activate);
-    icon.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+  /* Attach click handlers after WinBox creates the DOM */
+  setTimeout(() => {
+    openWins[key].body.querySelectorAll('[data-si]').forEach(btn => {
+      btn.addEventListener('click', () => openSessionWindow(+btn.dataset.si));
     });
-
-    grid.appendChild(icon);
-  });
+  }, 50);
 }
 
-function openSessionWindow(index) {
-  const s = sessions[index];
-  const winId = 'win-s' + index;
+/* Desktop icon clicks */
+document.getElementById('iconGrid').addEventListener('click', e => {
+  const btn = e.target.closest('[data-win]');
+  if (!btn) return;
+  const key = btn.dataset.win;
+  if (key === 'sessions') { openSessionsFolder(); return; }
+  const cfg = WINDOWS[key];
+  if (cfg) openWinBox(key, cfg);
+});
 
-  if (!document.getElementById(winId)) {
-    const win = document.createElement('div');
-    win.className = 'window';
-    win.id = winId;
-    win.innerHTML = `
-      <div class="window-titlebar" data-winid="${winId}">
-        <div class="wc-wrap">
-          <button class="wc-btn wc-close" data-close="${winId}" aria-label="Close">×</button>
-        </div>
-        <span class="win-title-text">${s.filename}</span>
-        <div class="wc-spacer"></div>
-      </div>
-      <div class="window-body">
-        <pre class="file-text">${escHtml(s.content)}</pre>
-      </div>
-    `;
-    document.getElementById('sessionWindows').appendChild(win);
-    initDrag(win.querySelector('.window-titlebar'));
-  }
-
-  const row = Math.floor(index / 3);
-  const col = index % 3;
-  openWindow(winId, {
-    top:  90  + row * 30 + col * 12,
-    left: 180 + col * 32 + row * 16,
-  });
-}
-
-function escHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-buildSessionsFolder();
-
-/* ── Terminal typewriter ─────────────────────────────────────── */
-const termMessages = [
-  'still online...',
-  'your data. your rules.',
-  'sudo apt install freedom',
-  'encryption is not a crime',
-  'trust no one. verify everything.',
-  'there is no cloud.',
-  'azad (آزاد) :: free',
-  'rm -rf /surveillance',
-  'uptime: always',
-  'knowledge is infrastructure',
-];
-
-let tMsgIdx  = 0;
-let tCharIdx = 0;
-let tTyping  = true;
-const tEl = document.getElementById('termMsg');
-
-function typeTerminal() {
-  const msg = termMessages[tMsgIdx];
-
-  if (tTyping) {
-    if (tCharIdx <= msg.length) {
-      tEl.textContent = msg.slice(0, tCharIdx);
-      tCharIdx++;
-      setTimeout(typeTerminal, 55 + Math.random() * 45);
-    } else {
-      setTimeout(() => { tTyping = false; typeTerminal(); }, 2600);
-    }
-  } else {
-    if (tCharIdx > 0) {
-      tCharIdx--;
-      tEl.textContent = msg.slice(0, tCharIdx);
-      setTimeout(typeTerminal, 28);
-    } else {
-      tMsgIdx = (tMsgIdx + 1) % termMessages.length;
-      tTyping = true;
-      setTimeout(typeTerminal, 500);
-    }
-  }
-}
-
-setTimeout(typeTerminal, 800);
-
-/* ── Clock ──────────────────────────────────────────────────── */
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
-  const el = document.getElementById('clock');
-  if (el) el.textContent = h + ':' + m;
-}
-
-updateClock();
-setInterval(updateClock, 10000);
-
-/* ── Keyboard shortcut: Escape closes topmost window ─────────── */
-document.addEventListener('keydown', (e) => {
+/* Keyboard: Escape closes topmost window */
+document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  const wins = [...document.querySelectorAll('.window')]
-    .filter(w => w.style.display === 'flex')
-    .sort((a, b) => parseInt(b.style.zIndex || 0) - parseInt(a.style.zIndex || 0));
-  if (wins[0]) closeWindow(wins[0].id);
+  const top = Object.values(openWins).at(-1);
+  if (top) top.close();
 });
