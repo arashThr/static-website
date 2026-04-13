@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azad Lab — Digital Sovereignty Workshops · Stockholm</title>
-  <meta name="description" content="Hands-on workshops teaching digital sovereignty in Stockholm. For everyone — no technical background needed.">
+  <meta name="description" content="Hands-on workshops in Stockholm about owning your tools, your data, and your digital life. For everyone — no technical background needed.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -82,7 +82,7 @@
     }
 
     .hero-sub {
-      font-size: clamp(12px, 1.7vw, 15px);
+      font-size: clamp(14px, 1.9vw, 17px);
       color: var(--dim);
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -91,7 +91,7 @@
 
     .hero-farsi {
       font-family: var(--f-mono);
-      font-size: clamp(12px, 1.5vw, 15px);
+      font-size: clamp(13px, 1.6vw, 16px);
       color: rgba(232,136,32,0.5);
       letter-spacing: 0.1em;
       margin-top: 10px;
@@ -108,7 +108,7 @@
       gap: 8px;
       color: var(--dim);
       font-family: var(--f-mono);
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.22em;
     }
 
@@ -129,7 +129,7 @@
     /* ─── Shared section components ────────────────────── */
     .label {
       font-family: var(--f-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--amber);
       letter-spacing: 0.24em;
       text-transform: uppercase;
@@ -143,8 +143,8 @@
       margin-bottom: 40px;
     }
 
-    /* ─── They Know ────────────────────────────────────── */
-    #they-know { background: #070809; }
+    /* ─── Own vs Rent ───────────────────────────────────── */
+    #own-rent { background: #070809; }
 
     .data-list {
       list-style: none;
@@ -152,7 +152,7 @@
     }
 
     .data-item {
-      padding: 20px 0;
+      padding: 22px 0;
       border-bottom: 1px solid var(--line);
     }
 
@@ -162,29 +162,29 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: clamp(17px, 2.3vw, 22px);
+      font-size: clamp(19px, 2.5vw, 24px);
       font-weight: 500;
     }
 
     .dot {
       width: 7px; height: 7px;
       border-radius: 50%;
-      background: var(--red);
+      background: var(--amber);
       flex-shrink: 0;
     }
 
     .data-sub {
       font-family: var(--f-mono);
-      font-size: clamp(11px, 1.3vw, 13px);
+      font-size: clamp(13px, 1.5vw, 15px);
       color: var(--dim);
-      margin-top: 6px;
+      margin-top: 7px;
       padding-left: 21px;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     .data-footer {
-      margin-top: 40px;
-      font-size: clamp(16px, 2vw, 20px);
+      margin-top: 44px;
+      font-size: clamp(18px, 2.2vw, 22px);
       color: var(--dim);
       max-width: 600px;
       line-height: 1.65;
@@ -192,8 +192,8 @@
 
     .data-footer strong { color: var(--text); font-weight: 600; }
 
-    /* ─── Shutdowns ────────────────────────────────────── */
-    #shutdowns { background: #080507; }
+    /* ─── Preparedness ──────────────────────────────────── */
+    #preparedness { background: #080507; }
 
     .shutdown-big {
       display: flex;
@@ -210,7 +210,7 @@
 
     .shutdown-sublabel {
       font-family: var(--f-mono);
-      font-size: clamp(12px, 1.5vw, 15px);
+      font-size: clamp(13px, 1.6vw, 16px);
       color: var(--dim);
       letter-spacing: 0.07em;
       margin-top: 8px;
@@ -219,8 +219,8 @@
     .incidents {
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      max-width: 660px;
+      gap: 26px;
+      max-width: 680px;
     }
 
     .incident {
@@ -230,34 +230,34 @@
 
     .incident-when {
       font-family: var(--f-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: rgba(196,34,0,0.7);
       letter-spacing: 0.08em;
       margin-bottom: 5px;
     }
 
     .incident-what {
-      font-size: clamp(15px, 1.9vw, 19px);
+      font-size: clamp(17px, 2.1vw, 21px);
       font-weight: 500;
       line-height: 1.4;
     }
 
     .incident-detail {
-      font-size: clamp(13px, 1.4vw, 15px);
+      font-size: clamp(14px, 1.5vw, 16px);
       color: var(--dim);
-      margin-top: 3px;
-      line-height: 1.5;
+      margin-top: 4px;
+      line-height: 1.55;
     }
 
     .shutdown-alert {
-      margin-top: 40px;
+      margin-top: 44px;
       font-family: var(--f-mono);
-      font-size: clamp(12px, 1.5vw, 14px);
+      font-size: clamp(13px, 1.5vw, 15px);
       color: var(--amber);
       border: 1px solid rgba(232,136,32,0.25);
-      padding: 16px 22px;
+      padding: 18px 24px;
       display: inline-block;
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
     /* ─── Personal ─────────────────────────────────────── */
@@ -266,12 +266,12 @@
     .quote-stack {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 26px;
       max-width: 840px;
     }
 
     .q {
-      font-size: clamp(21px, 3.5vw, 42px);
+      font-size: clamp(23px, 3.8vw, 46px);
       line-height: 1.45;
       font-weight: 400;
     }
@@ -287,22 +287,22 @@
     }
 
     .q-follow {
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(18px, 2.2vw, 22px);
       color: var(--dim);
-      line-height: 1.7;
-      max-width: 580px;
+      line-height: 1.72;
+      max-width: 600px;
     }
 
     .q-follow em { color: var(--text); font-style: normal; font-weight: 500; }
 
     .q-attr {
-      margin-top: 40px;
+      margin-top: 44px;
       font-family: var(--f-mono);
-      font-size: 13px;
+      font-size: 15px;
       color: var(--dim);
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .q-attr strong { color: var(--text); font-weight: 500; }
@@ -311,11 +311,11 @@
     #curriculum { background: #07080b; }
 
     .curriculum-intro {
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(18px, 2.2vw, 22px);
       color: var(--dim);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 40px;
+      max-width: 580px;
+      line-height: 1.72;
+      margin-bottom: 44px;
     }
 
     .card-grid {
@@ -327,7 +327,7 @@
 
     .sess-card {
       background: #07080b;
-      padding: 28px 26px;
+      padding: 30px 28px;
       transition: background 0.2s;
     }
 
@@ -335,23 +335,76 @@
 
     .sess-num {
       font-family: var(--f-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--amber);
       letter-spacing: 0.1em;
       margin-bottom: 12px;
     }
 
     .sess-title {
-      font-size: clamp(16px, 1.8vw, 18px);
+      font-size: clamp(17px, 2vw, 20px);
       font-weight: 600;
       margin-bottom: 10px;
       line-height: 1.3;
     }
 
     .sess-desc {
+      font-size: clamp(14px, 1.6vw, 17px);
+      color: var(--dim);
+      line-height: 1.68;
+      margin-bottom: 16px;
+    }
+
+    .sess-covers {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .sess-covers li {
       font-size: clamp(13px, 1.4vw, 15px);
       color: var(--dim);
-      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .sess-covers li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+    }
+
+    .sess-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 18px 0;
+    }
+
+    .sess-outcome-label {
+      display: block;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .sess-outcome {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .sess-tools {
+      margin-top: 16px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: rgba(237,232,224,0.2);
+      letter-spacing: 0.03em;
     }
 
     /* ─── For Everyone ─────────────────────────────────── */
@@ -367,10 +420,10 @@
     .big-claim .hl { color: var(--amber); }
 
     .everyone-body {
-      font-size: clamp(17px, 2.1vw, 21px);
+      font-size: clamp(19px, 2.3vw, 23px);
       color: var(--dim);
-      margin-top: 36px;
-      max-width: 580px;
+      margin-top: 40px;
+      max-width: 600px;
       line-height: 1.72;
     }
 
@@ -390,9 +443,9 @@
     }
 
     .join-meta {
-      font-size: clamp(16px, 1.9vw, 19px);
+      font-size: clamp(18px, 2.1vw, 21px);
       color: var(--dim);
-      line-height: 1.7;
+      line-height: 1.72;
       margin-bottom: 36px;
     }
 
@@ -408,7 +461,7 @@
       gap: 22px;
       text-decoration: none;
       color: var(--text);
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(18px, 2.2vw, 22px);
       transition: color 0.18s;
     }
 
@@ -416,7 +469,7 @@
 
     .contact-tag {
       font-family: var(--f-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--amber);
       letter-spacing: 0.12em;
       width: 88px;
@@ -436,13 +489,13 @@
 
     .farsi-tag {
       font-family: var(--f-mono);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--dim);
     }
 
     .terminal-link {
       font-family: var(--f-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: var(--dim);
       text-decoration: none;
       letter-spacing: 0.04em;
@@ -528,75 +581,75 @@
 
 </section>
 
-<!-- ════════ THEY KNOW ════════════════════════════════════ -->
-<section id="they-know">
-  <p class="label">The situation</p>
-  <h2 class="section-heading">Right now,<br>they know:</h2>
+<!-- ════════ OWN VS RENT ══════════════════════════════════ -->
+<section id="own-rent">
+  <p class="label">The real question</p>
+  <h2 class="section-heading">Do you own it,<br>or are you renting it?</h2>
 
   <ul class="data-list" id="dataList">
     <li class="data-item">
-      <div class="data-top"><span class="dot"></span>Where you are — right now</div>
-      <div class="data-sub">To within a few metres. Updated continuously. Stored for years.</div>
+      <div class="data-top"><span class="dot"></span>Your photos and memories</div>
+      <div class="data-sub">Stored on someone else's server. Subject to their pricing, their policies, their decisions. One change and your archive becomes inaccessible.</div>
     </li>
     <li class="data-item">
-      <div class="data-top"><span class="dot"></span>Who you talk to — and how often</div>
-      <div class="data-sub">Metadata alone reveals your closest relationships, your health, your politics.</div>
+      <div class="data-top"><span class="dot"></span>Your messages and conversations</div>
+      <div class="data-sub">Run through apps that require an account and an active service. Someone else decides what you can say, who you can reach, and when the service stays on.</div>
     </li>
     <li class="data-item">
-      <div class="data-top"><span class="dot"></span>What you search for — going back years</div>
-      <div class="data-sub">Health concerns, private fears, political questions — all logged and profiled.</div>
+      <div class="data-top"><span class="dot"></span>Your creative tools</div>
+      <div class="data-sub">Rented monthly. Stop paying — lose access. The work you made is locked inside a format or a platform you don't control.</div>
     </li>
     <li class="data-item">
-      <div class="data-top"><span class="dot"></span>What you believe — inferred and scored</div>
-      <div class="data-sub">Political and psychological profiles built from clicks, pauses, and shares. Sold.</div>
+      <div class="data-top"><span class="dot"></span>Your documents, notes, calendars</div>
+      <div class="data-sub">Created by you. Hosted by a corporation. Available until it isn't — or until you've been logged out, flagged, or simply forgotten a password.</div>
     </li>
     <li class="data-item">
-      <div class="data-top"><span class="dot"></span>Your home — when you're there, when you're not</div>
-      <div class="data-sub">Smart devices, phone pings, utility data — combined, analysed, monetised.</div>
+      <div class="data-top"><span class="dot"></span>Your habits, history, and preferences</div>
+      <div class="data-sub">The price of "free" services. Collected, profiled, and sold — not as a side effect, but as the entire business model.</div>
     </li>
   </ul>
 
   <p class="data-footer" id="dataFooter">
-    You didn't hide this. You didn't choose to share it.<br>
-    <strong>You just used the internet.</strong>
+    There is a different way to use a computer.<br>
+    <strong>You can own your tools instead of renting them.</strong>
   </p>
 </section>
 
-<!-- ════════ SHUTDOWNS ════════════════════════════════════ -->
-<section id="shutdowns">
-  <p class="label">When it gets worse</p>
+<!-- ════════ PREPAREDNESS ════════════════════════════════ -->
+<section id="preparedness">
+  <p class="label">When infrastructure fails</p>
 
   <div class="shutdown-big">
     <span class="shutdown-num" id="shutdownCount">0</span>
-    <span class="shutdown-sublabel">documented internet shutdowns · 2016 – 2024 · across 72 countries</span>
+    <span class="shutdown-sublabel">documented internet disruptions · 2016 – 2024 · across 72 countries</span>
   </div>
 
   <div class="incidents" id="incidentList">
     <div class="incident">
       <div class="incident-when">November 2019 · Iran</div>
-      <div class="incident-what">The internet went dark for five days.</div>
-      <div class="incident-detail">Protests were suppressed. At least 1,500 people were killed. The world found out afterwards.</div>
-    </div>
-    <div class="incident">
-      <div class="incident-when">February 2021 · Myanmar</div>
-      <div class="incident-what">Military coup. Internet cut.</div>
-      <div class="incident-detail">18 months of rolling blackouts. Atrocities documented only through smuggled footage.</div>
+      <div class="incident-what">Five days. No internet. No way to reach the outside world.</div>
+      <div class="incident-detail">People who had built their own tools — local storage, offline communication — kept functioning. Those who only rented access had nothing left.</div>
     </div>
     <div class="incident">
       <div class="incident-when">February 2022 · Ukraine</div>
-      <div class="incident-what">Infrastructure attacks began in the first hour of the invasion.</div>
-      <div class="incident-detail">Satellite internet, telecoms, and power grids all targeted simultaneously.</div>
+      <div class="incident-what">Telecoms, power, and cloud services were targeted in the first hour of the invasion.</div>
+      <div class="incident-detail">Resilience came from infrastructure that didn't depend on a single connection or a single provider.</div>
     </div>
     <div class="incident">
       <div class="incident-when">2021 – 2023 · Ethiopia, Tigray</div>
       <div class="incident-what">Two years without any telecommunications.</div>
-      <div class="incident-detail">The longest documented communications blackout in history. Confirmed later from satellite images.</div>
+      <div class="incident-detail">Information survived only where it was stored locally. The longest documented communications blackout in history.</div>
+    </div>
+    <div class="incident">
+      <div class="incident-when">Ongoing · Sweden, NATO, MSB</div>
+      <div class="incident-what">Sweden's civil preparedness strategy asks every household to be self-sufficient for 72 hours.</div>
+      <div class="incident-detail">Food. Water. Power. The checklist exists. Digital preparedness is never on it — yet.</div>
     </div>
   </div>
 
   <div class="shutdown-alert" id="shutdownAlert">
-    ⚠ Right now: Iran has been offline for 40+ days.<br>
-    This is not a news story. This is infrastructure as a weapon.
+    This is not about fear. It's about dependency.<br>
+    What you own still works when everything else goes down.
   </div>
 </section>
 
@@ -606,19 +659,20 @@
 
   <div class="quote-stack">
     <p class="q" id="q1">
-      "In November 2019, I was in Tehran<br>when <em>the internet went dark.</em>"
+      "I didn't build my own tools<br>because I was afraid of a shutdown."
     </p>
     <p class="q q-muted" id="q2">
-      "I knew people were being killed outside.<br>
-       The world didn't. Not for five days."
+      "I built them because renting<br>
+       my digital life from corporations<br>
+       felt like the wrong way to work."
     </p>
     <div class="q-rule" id="qRule"></div>
     <p class="q-follow" id="qFollow">
-      I had already built the tools to stay connected.
-      A connection that worked without a reliable internet.
-      Backups on hardware I controlled.
-      Communication that didn't depend on any single server.<br><br>
-      <em>Not because I was an expert. Because I had prepared.</em>
+      In November 2019 I was in Tehran when the internet went dark for five days.
+      I didn't lose access to my work, my files, or my communication —
+      because none of it depended on a connection I didn't control.<br><br>
+      <em>The shutdown wasn't the lesson. It was a reminder of a lesson I had already learned.</em><br><br>
+      Owning your tools matters. Not as crisis preparation — just as a better way to live.
     </p>
   </div>
 
@@ -632,44 +686,117 @@
 <!-- ════════ CURRICULUM ═══════════════════════════════════ -->
 <section id="curriculum">
   <p class="label">The workshops</p>
-  <h2 class="section-heading">6 sessions.<br>Real tools.<br>No jargon.</h2>
+  <h2 class="section-heading">6 sessions.<br>Real tools.<br>Yours to keep.</h2>
 
   <p class="curriculum-intro" id="curriculumIntro">
     Every session ends with something running on your own machine —
-    not slides, not theory. A tool you own and control.
+    something you own, control, and don't pay a subscription for.
   </p>
 
   <div class="card-grid" id="cardGrid">
+
     <div class="sess-card">
       <div class="sess-num">SESSION 01</div>
       <div class="sess-title">Your Computer, Not Theirs</div>
-      <div class="sess-desc">Move to Linux. Understand what you're running and why it matters. No experience needed.</div>
+      <div class="sess-desc">Big Tech built beautiful cages. Your laptop and phone are products designed to harvest you, not serve you. We start by leaving.</div>
+      <ul class="sess-covers">
+        <li>Why Linux matters for digital sovereignty</li>
+        <li>Install Ubuntu or Fedora — your first free OS</li>
+        <li>The terminal: your new home base</li>
+        <li>Software without an app store controlling what you run</li>
+        <li>Filesystem layout and why it matters</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">A working Linux install. A terminal you're not afraid of. The mental model every other session builds on.</div>
+      <div class="sess-tools">Ubuntu · Fedora · bash · apt/dnf</div>
     </div>
+
     <div class="sess-card">
       <div class="sess-num">SESSION 02</div>
       <div class="sess-title">Your Photos & Media, Your Server</div>
-      <div class="sess-desc">Stop storing memories in corporate clouds. Host your own photo library on hardware you own.</div>
+      <div class="sess-desc">Your memories don't belong in a corporation's datacentre. Build your own photo library and media server — Google Photos and Netflix, but yours.</div>
+      <ul class="sess-covers">
+        <li>Docker and containers — the concept, hands-on</li>
+        <li>Immich: private photo library with face recognition and mobile backup, all local</li>
+        <li>Jellyfin: your personal streaming server</li>
+        <li>Hardware options: old laptop, Raspberry Pi, VPS</li>
+        <li>Backup strategy: the 3-2-1 rule applied</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">Immich running with photos syncing from your phone. Jellyfin streaming your media. An understanding of how Docker actually works.</div>
+      <div class="sess-tools">Docker · Immich · Jellyfin</div>
     </div>
+
     <div class="sess-card">
       <div class="sess-num">SESSION 03</div>
       <div class="sess-title">Private Access from Anywhere</div>
-      <div class="sess-desc">Connect to your own network securely from anywhere, without exposing it to the internet.</div>
+      <div class="sess-desc">You've built something worth accessing. Now connect to it privately, from anywhere, without opening your home to the internet.</div>
+      <ul class="sess-covers">
+        <li>Tailscale: private mesh network over WireGuard</li>
+        <li>A European VPS: cheap, reliable, yours</li>
+        <li>Caddy reverse proxy: automatic HTTPS, clean routing</li>
+        <li>DNS basics: pointing names at your own infrastructure</li>
+        <li>Access your photos and media from your phone, anywhere</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">A private network connecting all your devices. Your services accessible over HTTPS — no commercial VPN, no third party in the middle.</div>
+      <div class="sess-tools">Tailscale · WireGuard · Caddy · Hetzner</div>
     </div>
+
     <div class="sess-card">
       <div class="sess-num">SESSION 04</div>
       <div class="sess-title">Take Back Your Phone</div>
-      <div class="sess-desc">Your phone is the most powerful surveillance device ever made. Learn to make it yours.</div>
+      <div class="sess-desc">Your phone knows where you sleep, who you love, and what you fear. It reports all of it. This session is about taking that back.</div>
+      <ul class="sess-covers">
+        <li>What stock Android and iOS actually collect</li>
+        <li>GrapheneOS: hardened Android for Pixel devices</li>
+        <li>F-Droid: open-source app store, no Google account</li>
+        <li>Signal, Session, Matrix/Element for private messaging</li>
+        <li>AI on your own device — models that never leave your phone</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">A concrete plan for your device. Pixel owners: a flashed GrapheneOS install. Everyone: an audited, hardened phone.</div>
+      <div class="sess-tools">GrapheneOS · F-Droid · Signal · llama.cpp</div>
     </div>
+
     <div class="sess-card">
       <div class="sess-num">SESSION 05</div>
       <div class="sess-title">Your Own Infrastructure</div>
-      <div class="sess-desc">A small device at home can run your storage, backups, and automation — with no third party.</div>
+      <div class="sess-desc">A small device at home can replace cloud storage, smart home hubs, and automation — with no subscription and no permission from anyone.</div>
+      <ul class="sess-covers">
+        <li>Raspberry Pi: from bare board to server</li>
+        <li>TrueNAS SCALE: professional NAS software, free — RAID, snapshots, file sharing</li>
+        <li>Home Assistant: open-source home automation, fully offline</li>
+        <li>Lights, climate, sensors, automations — without cloud dependencies</li>
+        <li>Local voice control — no Alexa, no Google</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">Home Assistant running your automations. A design for your home storage setup. No ongoing cost, no third-party account.</div>
+      <div class="sess-tools">Raspberry Pi · TrueNAS · Home Assistant</div>
     </div>
+
     <div class="sess-card">
       <div class="sess-num">SESSION 06</div>
       <div class="sess-title">When the Network Goes Dark</div>
-      <div class="sess-desc">Power cuts. ISP outages. Infrastructure attacks. Offline tools, mesh communication, resilience.</div>
+      <div class="sess-desc">Power cut. ISP outage. Infrastructure attack. What you built in sessions 1–5 still works — because you own it. This session makes it resilient.</div>
+      <ul class="sess-covers">
+        <li>Offline-first design: build for disconnection from the start</li>
+        <li>Encrypted backups with Borg and Restic</li>
+        <li>Syncthing: peer-to-peer sync with no servers involved</li>
+        <li>Meshtastic + LoRa radio: communication without internet</li>
+        <li>Your personal resilience checklist</li>
+      </ul>
+      <div class="sess-divider"></div>
+      <span class="sess-outcome-label">You leave with:</span>
+      <div class="sess-outcome">A running encrypted backup solution. An understanding of offline and mesh tools. A concrete plan for when things go wrong.</div>
+      <div class="sess-tools">Borg · Restic · Syncthing · Meshtastic</div>
     </div>
+
   </div>
 </section>
 
@@ -677,15 +804,16 @@
 <section id="everyone">
   <h2 class="big-claim" id="bigClaim">
     You don't need<br>to be <span class="hl">technical.</span><br>
-    You need to know<br>what's <span class="hl">at stake.</span>
+    You need to decide<br>what's <span class="hl">yours.</span>
   </h2>
 
   <p class="everyone-body" id="everyoneBody">
     Every workshop is designed for complete beginners.
-    We explain what we're doing and why — in plain language.<br><br>
-    <strong>Sweden is preparing its citizens for crisis.</strong>
+    We explain what we're doing and why — in plain language, without jargon.<br><br>
+    <strong>Sweden already teaches us to be prepared.</strong>
     MSB asks every household to be self-sufficient for 72 hours.
-    Digital preparedness is part of that. This is where you start.
+    That same principle applies to the tools you use every day.
+    This is where digital preparedness starts.
   </p>
 </section>
 
@@ -768,14 +896,14 @@
     }, extra || {}));
   }
 
-  /* ── They Know ─────────────────────────────────────── */
+  /* ── Own vs Rent ───────────────────────────────────── */
   gsap.from('#dataList .data-item', {
     scrollTrigger: { trigger: '#dataList', start: 'top 80%' },
     y: 28, opacity: 0, stagger: 0.13, duration: 0.65, ease: 'power2.out',
   });
   reveal('#dataFooter');
 
-  /* ── Shutdowns ─────────────────────────────────────── */
+  /* ── Preparedness ──────────────────────────────────── */
   // Counter
   ScrollTrigger.create({
     trigger: '#shutdownCount',
