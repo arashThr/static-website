@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dooms Day Lab — Digital Resilience Workshops · Stockholm</title>
-  <meta name="description" content="Hands-on workshops in Stockholm about digital resilience and independence — preparing for the AI era, internet shutdowns, and owning your data. For everyone, no technical background needed.">
+  <title>Dooms Day Lab - Digital Resilience Workshops · Stockholm</title>
+  <meta name="description" content="Hands-on workshops in Stockholm about digital resilience and independence - preparing for the AI era, internet shutdowns, and owning your data. For everyone, no technical background needed.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -504,10 +504,147 @@
 
     .terminal-link:hover { color: var(--amber); }
 
+    /* ─── About Me ─────────────────────────────────────── */
+    #about { background: #060709; }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 56px;
+      max-width: 940px;
+      align-items: start;
+    }
+
+    .about-photo-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .about-text {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--dim);
+      line-height: 1.78;
+    }
+
+    .about-text em { color: var(--text); font-style: normal; }
+
+    .about-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .about-list li {
+      font-size: clamp(14px, 1.5vw, 16px);
+      color: var(--dim);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .about-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+    }
+
+    /* ─── Photo slots ──────────────────────────────────── */
+    .photo-slot {
+      border: 1px solid rgba(237,232,224,0.10);
+      background: rgba(237,232,224,0.02);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 24px 20px;
+      min-height: 180px;
+    }
+
+    .photo-slot::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(237,232,224,0.05);
+      pointer-events: none;
+    }
+
+    .photo-slot-label {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .photo-slot-desc {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: rgba(237,232,224,0.2);
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.65;
+    }
+
+    .photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 40px;
+      max-width: 680px;
+    }
+
+    /* ─── Volunteer block ──────────────────────────────── */
+    .volunteer-block {
+      margin-top: 56px;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+      max-width: 620px;
+    }
+
+    .volunteer-label {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--amber);
+      letter-spacing: 0.2em;
+      margin-bottom: 14px;
+    }
+
+    .volunteer-text {
+      font-size: clamp(16px, 1.9vw, 19px);
+      color: var(--dim);
+      line-height: 1.68;
+    }
+
+    .volunteer-text strong { color: var(--text); font-weight: 500; }
+
+    .join-cta {
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--dim);
+      line-height: 1.68;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .join-cta em { color: var(--text); font-style: normal; }
+
     /* ─── Mobile ───────────────────────────────────────── */
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       section { padding: 60px 20px; }
       #heroEye { width: 96vw; }
+      .about-layout { grid-template-columns: 1fr; gap: 32px; }
+      .photo-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -589,7 +726,7 @@
   <ul class="data-list" id="dataList">
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your searches and browsing</div>
-      <div class="data-sub">Every query, every click, every hesitation is logged. AI systems use this to build a behavioural profile — not just of what you buy, but of what you think and believe.</div>
+      <div class="data-sub">Every query, every click, every hesitation is logged. AI systems use this to build a behavioural profile - not just of what you buy, but of what you think and believe.</div>
     </li>
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your messages and conversations</div>
@@ -601,7 +738,7 @@
     </li>
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your location and daily patterns</div>
-      <div class="data-sub">Your phone maps your home, your workplace, your routines. This data is sold to data brokers, bought by advertisers — and in some countries, by intelligence agencies.</div>
+      <div class="data-sub">Your phone maps your home, your workplace, your routines. This data is sold to data brokers, bought by advertisers - and in some countries, by intelligence agencies.</div>
     </li>
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your political and personal views</div>
@@ -626,7 +763,7 @@
 
   <div class="incidents" id="incidentList">
     <div class="incident">
-      <div class="incident-when">2026 · Iran — ongoing</div>
+      <div class="incident-when">2026 · Iran - ongoing</div>
       <div class="incident-what">40+ days without internet. Right now.</div>
       <div class="incident-detail">Not tied to a specific protest. Not a temporary measure. 80 million people cut off. Families unable to reach each other. No AI tools. No cloud access. Just gone.</div>
     </div>
@@ -643,13 +780,24 @@
     <div class="incident">
       <div class="incident-when">Today · Sweden</div>
       <div class="incident-what">Sweden joined NATO in 2024. MSB asks every household to prepare for 72 hours of self-sufficiency.</div>
-      <div class="incident-detail">Food. Water. Power. The checklist exists. Digital preparedness — your data, your communications, your tools — is never on it. It should be.</div>
+      <div class="incident-detail">Food. Water. Power. The checklist exists. Digital preparedness - your data, your communications, your tools - is never on it. It should be.</div>
     </div>
   </div>
 
   <div class="shutdown-alert" id="shutdownAlert">
     This is not about fear. It's about dependency.<br>
     What you own still works when everything else goes dark.
+  </div>
+
+  <div class="photo-row">
+    <div class="photo-slot">
+      <span class="photo-slot-label">[ photo ]</span>
+      <span class="photo-slot-desc">Iran internet shutdown<br>November 2019</span>
+    </div>
+    <div class="photo-slot">
+      <span class="photo-slot-label">[ photo ]</span>
+      <span class="photo-slot-desc">NetBlocks traffic graph<br>BGP withdrawal documented</span>
+    </div>
   </div>
 </section>
 
@@ -659,7 +807,7 @@
   <h2 class="section-heading">6 sessions.<br>Real tools.<br>Yours to keep.</h2>
 
   <p class="curriculum-intro" id="curriculumIntro">
-    Every session ends with something running on your own machine —
+    Every session ends with something running on your own machine -
     something you own, control, and that keeps working offline.
     No subscriptions. No corporate accounts. No single point of failure.
   </p>
@@ -672,7 +820,7 @@
       <div class="sess-desc">Big Tech built beautiful cages. Your laptop and phone are products designed to harvest you, not serve you. We start by leaving.</div>
       <ul class="sess-covers">
         <li>Why Linux matters for digital sovereignty</li>
-        <li>Install Ubuntu or Fedora — your first free OS</li>
+        <li>Install Ubuntu or Fedora - your first free OS</li>
         <li>The terminal: your new home base</li>
         <li>Software without an app store controlling what you run</li>
         <li>Filesystem layout and why it matters</li>
@@ -686,9 +834,9 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 02</div>
       <div class="sess-title">Your Photos & Media, Your Server</div>
-      <div class="sess-desc">Your memories don't belong in a corporation's datacentre. Build your own photo library and media server — Google Photos and Netflix, but yours.</div>
+      <div class="sess-desc">Your memories don't belong in a corporation's datacentre. Build your own photo library and media server - Google Photos and Netflix, but yours.</div>
       <ul class="sess-covers">
-        <li>Docker and containers — the concept, hands-on</li>
+        <li>Docker and containers - the concept, hands-on</li>
         <li>Immich: private photo library with face recognition and mobile backup, all local</li>
         <li>Jellyfin: your personal streaming server</li>
         <li>Hardware options: old laptop, Raspberry Pi, VPS</li>
@@ -713,7 +861,7 @@
       </ul>
       <div class="sess-divider"></div>
       <span class="sess-outcome-label">You leave with:</span>
-      <div class="sess-outcome">A private network connecting all your devices. Your services accessible over HTTPS — no commercial VPN, no third party in the middle.</div>
+      <div class="sess-outcome">A private network connecting all your devices. Your services accessible over HTTPS - no commercial VPN, no third party in the middle.</div>
       <div class="sess-tools">Tailscale · WireGuard · Caddy · Hetzner</div>
     </div>
 
@@ -726,7 +874,7 @@
         <li>GrapheneOS: hardened Android for Pixel devices</li>
         <li>F-Droid: open-source app store, no Google account</li>
         <li>Signal, Session, Matrix/Element for private messaging</li>
-        <li>AI on your own device — models that never leave your phone</li>
+        <li>AI on your own device - models that never leave your phone</li>
       </ul>
       <div class="sess-divider"></div>
       <span class="sess-outcome-label">You leave with:</span>
@@ -737,13 +885,13 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 05</div>
       <div class="sess-title">Your Own Infrastructure</div>
-      <div class="sess-desc">A small device at home can replace cloud storage, smart home hubs, and automation — with no subscription and no permission from anyone.</div>
+      <div class="sess-desc">A small device at home can replace cloud storage, smart home hubs, and automation - with no subscription and no permission from anyone.</div>
       <ul class="sess-covers">
         <li>Raspberry Pi: from bare board to server</li>
-        <li>TrueNAS SCALE: professional NAS software, free — RAID, snapshots, file sharing</li>
+        <li>TrueNAS SCALE: professional NAS software, free - RAID, snapshots, file sharing</li>
         <li>Home Assistant: open-source home automation, fully offline</li>
-        <li>Lights, climate, sensors, automations — without cloud dependencies</li>
-        <li>Local voice control — no Alexa, no Google</li>
+        <li>Lights, climate, sensors, automations - without cloud dependencies</li>
+        <li>Local voice control - no Alexa, no Google</li>
       </ul>
       <div class="sess-divider"></div>
       <span class="sess-outcome-label">You leave with:</span>
@@ -754,7 +902,7 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 06</div>
       <div class="sess-title">When the Network Goes Dark</div>
-      <div class="sess-desc">Power cut. ISP outage. Infrastructure attack. What you built in sessions 1–5 still works — because you own it. This session makes it resilient.</div>
+      <div class="sess-desc">Power cut. ISP outage. Infrastructure attack. What you built in sessions 1–5 still works - because you own it. This session makes it resilient.</div>
       <ul class="sess-covers">
         <li>Offline-first design: build for disconnection from the start</li>
         <li>Encrypted backups with Borg and Restic</li>
@@ -780,32 +928,99 @@
 
   <p class="everyone-body" id="everyoneBody">
     Every workshop is designed for complete beginners.
-    We explain what we're doing and why — in plain language, without jargon.<br><br>
+    We explain what we're doing and why - in plain language, without jargon.<br><br>
+    Whether you're a developer or have never touched a terminal,
+    these sessions are a good opportunity to <strong>set up your safety nets together, in a group.</strong>
+    The technical people sharpen their skills. The non-technical people discover the tools
+    aren't as intimidating as they look. Everyone leaves with something running.<br><br>
     <strong>Sweden already understands preparedness.</strong>
     MSB asks every household to stock food and water for 72 hours.
     Digital resilience is the same instinct applied to the tools
-    you depend on every single day — and it starts here.
+    you depend on every single day - and it starts here.
   </p>
+</section>
+
+<!-- ════════ ABOUT ME ═════════════════════════════════════ -->
+<section id="about">
+  <p class="label">Who's behind this</p>
+  <h2 class="section-heading">About me.</h2>
+
+  <div class="about-layout">
+
+    <div class="about-photo-col">
+      <div class="photo-slot" style="min-height:260px;">
+        <span class="photo-slot-label">[ photo ]</span>
+        <span class="photo-slot-desc">Arash<br>Stockholm</span>
+      </div>
+    </div>
+
+    <div class="about-body">
+      <p class="about-text">
+        I'm Arash - a Stockholm-based software engineer with
+        <em>more than a decade of professional experience</em>,
+        and a relationship with open source that goes back much further than that.
+      </p>
+      <p class="about-text">
+        My first Linux installations were <em>Ubuntu 5.10 and Fedora 4</em>.
+        Watching Revolution OS changed how I thought about software -
+        not just as a tool, but as a question about who controls
+        the infrastructure you depend on. I became an active member of
+        the <em>Linux User Group in Iran</em>, and I've been building on that
+        foundation ever since.
+      </p>
+      <p class="about-text">
+        Nothing made the stakes clearer than growing up Iranian.
+        I saw firsthand how critical the free flow of information is -
+        and how quickly it can be taken away from an entire population.
+        That experience is the foundation of this curriculum.
+      </p>
+      <ul class="about-list">
+        <li>Professional software developer, 10+ years</li>
+        <li>Open source productivity tools - built and maintained publicly</li>
+        <li>Podcast host - conversations at the intersection of tech and society</li>
+        <li>Active in the FOSS community since the early 2000s</li>
+        <li>Based in Stockholm since [year] - Swedish and Iranian</li>
+      </ul>
+      <p class="about-text">
+        These workshops come from that intersection: the technical depth,
+        the lived experience of what happens when infrastructure fails,
+        and the belief that these skills shouldn't stay with specialists.
+      </p>
+    </div>
+
+  </div>
 </section>
 
 <!-- ════════ JOIN ══════════════════════════════════════════ -->
 <section id="join">
-  <p class="label">Interested in these sessions?</p>
-  <h2 class="join-heading" id="joinHeading">Join<br>the lab.</h2>
+  <p class="label">This is a proposal</p>
+  <h2 class="join-heading" id="joinHeading">Interested?<br>Tell me.</h2>
 
   <p class="join-meta" id="joinMeta">
-    Monthly workshops in Stockholm.<br>
-    Remote participation available for all sessions.<br>
-    No prior experience required. Bring a laptop.
+    These sessions don't exist yet - this is a proposal.<br>
+    If there's enough interest, we make it happen.<br>
+    No experience required. Bring a laptop and curiosity.
+  </p>
+
+  <p class="join-cta" id="joinCta">
+    <em>Follow me for updates</em> as this develops, or reach out directly
+    to say you'd attend - that's what turns a proposal into a workshop.
   </p>
 
   <div class="contacts" id="joinContacts">
-    <a class="contact" href="https://t.me/doomsdaylab">
-      <span class="contact-tag">TELEGRAM</span>t.me/doomsdaylab
+    <a class="contact" href="https://arashtaher.com">
+      <span class="contact-tag">WEBSITE</span>arashtaher.com
     </a>
-    <a class="contact" href="mailto:hello@doomsdaylab.dev">
-      <span class="contact-tag">EMAIL</span>hello@doomsdaylab.dev
-    </a>
+  </div>
+
+  <div class="volunteer-block" id="volunteerBlock">
+    <p class="volunteer-label">CONTRIBUTE</p>
+    <p class="volunteer-text">
+      You're a <strong>hardcore open source or freedom advocate</strong>
+      and want to help run one of these sessions?<br>
+      You know these tools and want to share that knowledge in a group setting?<br>
+      Reach out - co-facilitators are very welcome.
+    </p>
   </div>
 
   <div class="join-foot" id="joinFoot">
@@ -914,9 +1129,19 @@
   reveal('#bigClaim');
   reveal('#everyoneBody', { delay: 0.15 });
 
+  /* ── About ─────────────────────────────────────────── */
+  gsap.from('#about .about-photo-col', {
+    scrollTrigger: { trigger: '#about .about-layout', start: 'top 82%' },
+    x: -24, opacity: 0, duration: 0.75, ease: 'power2.out',
+  });
+  gsap.from('#about .about-body > *', {
+    scrollTrigger: { trigger: '#about .about-layout', start: 'top 82%' },
+    y: 22, opacity: 0, stagger: 0.1, duration: 0.65, ease: 'power2.out',
+  });
+
   /* ── Join ──────────────────────────────────────────── */
-  ['#joinHeading','#joinMeta','#joinContacts','#joinFoot'].forEach((sel, i) =>
-    reveal(sel, { delay: i * 0.1 })
+  ['#joinHeading','#joinMeta','#joinCta','#joinContacts','#volunteerBlock','#joinFoot'].forEach((sel, i) =>
+    reveal(sel, { delay: i * 0.08 })
   );
 </script>
 
