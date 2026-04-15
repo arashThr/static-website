@@ -32,6 +32,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    a {
+	color: skyblue;
+    }
+
     /* ─── Sections ─────────────────────────────────────── */
     section {
       position: relative;
@@ -569,6 +573,8 @@
       gap: 8px;
       padding: 24px 20px;
       min-height: 180px;
+      width:100%;
+      max-width: 400px;
     }
 
     .photo-slot::before {
@@ -595,6 +601,11 @@
       letter-spacing: 0.04em;
       text-align: center;
       line-height: 1.65;
+    }
+
+    .photo {
+	width:100%;
+	max-width:400px;
     }
 
     .photo-row {
@@ -720,8 +731,8 @@
 
 <!-- ════════ OWN VS RENT ══════════════════════════════════ -->
 <section id="own-rent">
-  <p class="label">A practical question</p>
-  <h2 class="section-heading">Know what you own.</h2>
+  <p class="label">What's in your control?</p>
+  <h2 class="section-heading">Own your digital life.</h2>
 
   <ul class="data-list" id="dataList">
     <li class="data-item">
@@ -738,7 +749,7 @@
     </li>
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your tools and creative work</div>
-      <div class="data-sub">Rented monthly. Stop paying and lose access. Locked into formats or platforms you don't control — until you decide otherwise.</div>
+      <div class="data-sub">Rented monthly. Stop paying and lose access. Locked into formats or platforms you don't control, until you decide otherwise.</div>
     </li>
     <li class="data-item">
       <div class="data-top"><span class="dot"></span>Your connectivity</div>
@@ -747,8 +758,8 @@
   </ul>
 
   <p class="data-footer" id="dataFooter">
-    This workshop is about changing the ratio. Not abandoning tools that bring real value —
-    but <strong>knowing which ones you own versus which ones you borrow.</strong>
+    This workshop is about giving individuals the chance to take ownership of their digital life,
+    without sacrificing the benefits of digital life by <strong>giving you the tools and guidelines you need.</strong>
   </p>
 </section>
 
@@ -785,17 +796,17 @@
   </div>
 
   <div class="shutdown-alert" id="shutdownAlert">
-    This is not about fear. It's about dependency.<br>
-    What you own still works when everything else goes dark.
+    Communication is recognized as a fundamental human right.<br>
+    It needs to protected, and we need to be ready when everything else goes dark.
   </div>
 
   <div class="photo-row">
     <div class="photo-slot">
-      <span class="photo-slot-label">[ photo ]</span>
-      <span class="photo-slot-desc">Iran internet shutdown<br>November 2019</span>
+      <img class="photo" src="shutdown.jpg" alt="Iran internet shutdown"/>
+      <span class="photo-slot-desc">Iran internet shutdown<br>April 2026</span>
     </div>
     <div class="photo-slot">
-      <span class="photo-slot-label">[ photo ]</span>
+      <img class="photo" src="netblocks.jpg" alt="Iran internet shutdown"/>
       <span class="photo-slot-desc">NetBlocks traffic graph<br>BGP withdrawal documented</span>
     </div>
   </div>
@@ -817,10 +828,11 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 01</div>
       <div class="sess-title">Your Computer, Your Rules</div>
-      <div class="sess-desc">Everything you do on Mac or Windows, you can do on Linux — often better, and often more beautifully. This session is about seeing what your computer can be when it works for you.</div>
+      <div class="sess-desc">Everything you do on Mac or Windows, you can do on Linux. It's fast, free and some might say even more beautiful. This session is about seeing what your computer can be when it works for you.</div>
       <ul class="sess-covers">
-        <li>Linux can look exactly how you want — demo of modern desktops</li>
-        <li>Browse, code, write, design — the full workflow is here</li>
+        <li>Why GNU/Linux matters and why it's the foundation of software freedom</li>
+	<li>Comparison of different distributions and finding the one right for you</li> 
+        <li>Browse, code, write, design. The full workflow is here</li>
         <li>No Copilot watching what you type; no forced updates; no walled garden</li>
         <li>Install any software without asking an app store for permission</li>
         <li>The terminal as a power tool, not a scary thing</li>
@@ -834,7 +846,7 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 02</div>
       <div class="sess-title">Your Photos, Your Files, Your Server</div>
-      <div class="sess-desc">Your uploaded photos may be training AI models you'll never see. And when a corporate account gets locked — with no support, no appeal — your memories go with it. This session puts them back in your hands.</div>
+      <div class="sess-desc">Your photos are a time machine into your paste and a lenses to observe how you became who you are. For big corporations, it's is invaluable data for training AI models on. And when a corporate account gets locked, good luck getting the support. This session puts them back in your hands.</div>
       <ul class="sess-covers">
         <li>What platforms do with uploaded photos (AI training, content analysis)</li>
         <li>The reality of account lockouts: no Google support exists for individuals</li>
@@ -852,7 +864,7 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 03</div>
       <div class="sess-title">Your Own Little Server</div>
-      <div class="sess-desc">A $50 device can block ads across your whole network, automate your home, and run your own services — no subscription, no cloud account, no third party in the loop.</div>
+      <div class="sess-desc">A $50 device can block ads across your whole network, automate your home, and run your own services. No subscription, no cloud account, no third party in the loop.</div>
       <ul class="sess-covers">
         <li>Raspberry Pi: what it is, what it can do, first boot</li>
         <li>Pi-hole: network-wide ad and tracker blocking — covers every device at home</li>
@@ -869,12 +881,12 @@
     <div class="sess-card">
       <div class="sess-num">SESSION 04</div>
       <div class="sess-title">AI: Trust & Own It</div>
-      <div class="sess-desc">Every query you send to ChatGPT or Copilot goes to a cloud server. Your questions reveal your work, your thinking, your politics. But AI can now run entirely on your own machine — on the same laptop you're holding.</div>
+      <div class="sess-desc">Your questions to AI reveal your work, your thinking, your politics. We're still far from having intelligence "at the palm of our hands", but there are models that even your laptop can run locally.</div>
       <ul class="sess-covers">
-        <li>What LLMs actually are — demystified, no maths</li>
-        <li>What your queries reveal and where they go when you send them</li>
+        <li>What LLMs actually are: demystified, in simple terms</li>
+        <li>Where your queries go when you send them and why you shouldn't say "Please"</li>
         <li>Ollama: one command to run any open model locally</li>
-        <li>Gemma 4 (by Google) and other open models — quality is there</li>
+        <li>Gemma 4 (by Google) and other open models: quality is there</li>
         <li>LM Studio: a GUI for running local AI, no command line required</li>
         <li>Practical uses: chat, document Q&A, coding help — all offline</li>
       </ul>
@@ -889,7 +901,7 @@
       <div class="sess-title">When the Network Goes Dark</div>
       <div class="sess-desc">Power cut. ISP down. Infrastructure attack. What tools still work? This session is about communicating and staying coordinated when the internet isn't available.</div>
       <ul class="sess-covers">
-        <li>BitChat: mesh messaging over Bluetooth and WiFi — no internet required</li>
+        <li>BitChat: mesh messaging over Bluetooth and WiFi. No internet required</li>
         <li>Meshtastic + LoRa radio: long-range mesh network without any infrastructure</li>
         <li>Syncthing: peer-to-peer file sync, no servers involved</li>
         <li>The Nomad project: a framework for the most essential digital emergency items</li>
@@ -1002,12 +1014,12 @@ GSAP reveal to add in the <script> block when uncommenting:
 <section id="everyone">
   <h2 class="big-claim" id="bigClaim">
     You don't need<br>to be <span class="hl">technical.</span><br>
-    You need to decide<br>what's <span class="hl">yours.</span>
+    You need to care about<br>what's <span class="hl">yours.</span>
   </h2>
 
   <p class="everyone-body" id="everyoneBody">
     Every workshop is designed for complete beginners.
-    We explain what we're doing and why - in plain language, without jargon.<br><br>
+    We explain what we're doing and why in plain language.<br><br>
     Whether you're a developer or have never touched a terminal,
     these sessions are a good opportunity to <strong>set up your safety nets together, in a group.</strong>
     The technical people sharpen their skills. The non-technical people discover the tools
@@ -1028,7 +1040,7 @@ GSAP reveal to add in the <script> block when uncommenting:
 
     <div class="about-photo-col">
       <div class="photo-slot" style="min-height:260px;">
-        <span class="photo-slot-label">[ photo ]</span>
+	<img src="me.jpg" width="200px" alt="me" />
         <span class="photo-slot-desc">Arash<br>Stockholm</span>
       </div>
     </div>
@@ -1040,30 +1052,27 @@ GSAP reveal to add in the <script> block when uncommenting:
         and a relationship with open source that goes back much further than that.
       </p>
       <p class="about-text">
-        My first Linux installations were <em>Ubuntu 5.10 and Fedora 4</em>.
-        Watching Revolution OS changed how I thought about software -
-        not just as a tool, but as a question about who controls
-        the infrastructure you depend on. I became an active member of
-        the <em>Linux User Group in Iran</em>, and I've been building on that
+        I got into the world of Free and open source software after installing my first Linux, <em>Ubuntu 5.10</em>.
+        Watching <a href="https://www.imdb.com/title/tt0308808/">Revolution OS</a> was when the idea clicked for me, and it changed how I thought about software -
+        not just as a tool, but as "one big act of subversive playful cleverness to change society for the better".
+        I became an member of the <em>Linux User Group in Iran</em>, and I've been building on that
         foundation ever since.
       </p>
       <p class="about-text">
         Nothing made the stakes clearer than growing up Iranian.
-        I saw firsthand how critical the free flow of information is -
-        and how quickly it can be taken away from an entire population.
+        I saw firsthand <b>how critical the free flow of information is</b>,
+        and how quickly <b>it can be taken away from an entire population</b>.
         That experience is the foundation of this curriculum.
       </p>
       <ul class="about-list">
         <li>Professional software developer, 10+ years</li>
-        <li>Open source productivity tools - built and maintained publicly</li>
-        <li>Podcast host - conversations at the intersection of tech and society</li>
-        <li>Active in the FOSS community since the early 2000s</li>
-        <li>Based in Stockholm since [year] - Swedish and Iranian</li>
+        <li>Open source productivity tools: built and maintained <a href="https://getpensive.com">publicly</a></li>
+        <li><a href="https://radiodaal.arashtaher.com">Podcast host</a>: conversations about diaspora experience</li>
       </ul>
       <p class="about-text">
         These workshops come from that intersection: the technical depth,
-        the lived experience of what happens when infrastructure fails,
-        and the belief that these skills shouldn't stay with specialists.
+        the lived experience of what happens when communications are cut off,
+        and the belief that we should be at the mercy of big corporations for what we own.
       </p>
     </div>
 
@@ -1072,14 +1081,14 @@ GSAP reveal to add in the <script> block when uncommenting:
 
 <!-- ════════ JOIN ══════════════════════════════════════════ -->
 <section id="join">
-  <p class="label">This is a proposal</p>
+  <p class="label">Let's make it into reality</p>
   <h2 class="join-heading" id="joinHeading">Interested?<br>Tell me.</h2>
 
-  <p class="join-meta" id="joinMeta">
-    These sessions don't exist yet - this is a proposal.<br>
-    If there's enough interest, we make it happen.<br>
-    No experience required. Bring a laptop and curiosity.
-  </p>
+  <!-- <p class="join-meta" id="joinMeta"> -->
+  <!--   These sessions don't exist yet - this is a proposal.<br> -->
+  <!--   If there's enough interest, we make it happen.<br> -->
+  <!--   No experience required. Bring a laptop and curiosity. -->
+  <!-- </p> -->
 
   <p class="join-cta" id="joinCta">
     <em>Follow me for updates</em> as this develops, or reach out directly
