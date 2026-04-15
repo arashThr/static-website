@@ -190,15 +190,14 @@ function scheduleNetworkAlert() {
         <div class="net-alert-location">Detected: ${ts}<br>Region: Tehran, IR — AS44244 (IRANCELL)<br>Protocol: BGP withdrawal confirmed</div>
         <div class="net-alert-body">
 Your connection to the outside world has been cut.<br><br>
-<em>This is what 80 million people experienced<br>
-on November 16, 2019.</em><br><br>
-No Twitter. No Signal. No news in or out.<br>
-International observers: blind.<br><br>
-The protests continued for five days<br>
-without the world watching.<br><br>
-At least 1,500 people were killed.<br><br>
-<em>The tools that work offline are the only<br>
-tools that work when this happens.</em>
+<em>This is what 80 million people have experienced<br>
+for 40+ days in 2026 — and counting.</em><br><br>
+No AI tools. No cloud backup. No Signal.<br>
+No way to reach family abroad.<br><br>
+Sweden sits in a region where this is<br>
+no longer an abstract concern.<br><br>
+<em>Digital resilience means owning the tools<br>
+that keep working when the network doesn't.</em>
         </div>
         <button class="net-alert-btn" id="netAlertBtn">See the curriculum →</button>
       </div>`,
@@ -236,18 +235,18 @@ function startStatusFlicker() {
   const msgs = [
     'still online...',
     'your data. your rules.',
-    'sudo apt install freedom',
+    'ai knows your politics before you do',
     'encryption is not a crime',
     'trust no one. verify everything.',
     'there is no cloud.',
-    'azad (آزاد) :: free',
+    'iran: day 40+ — no internet',
     'rm -rf /surveillance',
-    'knowledge is infrastructure',
+    'own your data. trust no cloud.',
     'uptime: always',
     'connection: severed',
     'ISP offline — gov. order #4821',
     'mesh: searching for peers...',
-    'last uptime: 74h ago',
+    'digital resilience starts offline',
     'fallback: shortwave radio',
   ];
   const el = document.getElementById('termMsg');
@@ -297,45 +296,41 @@ const WINDOWS = {
     title: 'README.txt',
     width: 540, height: 460,
     x: 140, y: 70,
-    content: `<pre class="file-text">AZAD LAB :: README.txt
+    content: `<pre class="file-text">DOOMS DAY LAB :: README.txt
 ══════════════════════════════════════════════
 
-Azad (آزاد) means "free" in Farsi.
+We are living through two slow emergencies.
 
-We believe digital freedom isn't theoretical —
-it's practical. It's the difference between
-owning your data and renting access to it.
-Between communicating privately and performing
-privacy in public.
+The first: everything about you — your searches,
+your location, your purchases, your opinions —
+is being collected, analysed, and used. Not as
+a side effect. As the business model. In an AI
+era, this data becomes a detailed portrait of
+who you are, what you believe, and how you can
+be influenced.
+
+The second: connectivity is not guaranteed.
+Iran's internet has been cut for over 40 days —
+right now, as this is written. It has happened
+in Ukraine, Myanmar, Sudan, Ethiopia. Sweden
+sits close to a country that has weaponised
+digital infrastructure as a tool of war.
+
+Digital resilience is the answer to both.
+
+It means owning your tools instead of renting
+them. Storing your data where you control it.
+Building systems that keep working when the
+network doesn't.
 
 This is a hands-on workshop community. We teach
 real tools, real setups, real configurations.
 Not slides. Not theory. You leave with something
-running.
-
-We exist because the conditions that make digital
-sovereignty urgent — internet shutdowns, state
-surveillance, corporate data harvesting,
-infrastructure collapse — are no longer
-hypothetical. They're happening now, in
-democracies and authoritarian states alike.
-
-This is for everyone: the developer who wants
-off Big Tech, the activist who needs operational
-security, the parent who doesn't want their
-family's photos in someone else's cloud, the
-curious person who just wants to understand
-how this all works.
-
-You don't need to trust governments or
-corporations to keep your digital life safe,
-private, and running.
-
-You just need to run it yourself.
+running — something that's yours.
 
 ──────────────────────────────────────────────
-"The tools that protect the most vulnerable
- protect everyone."
+"What you own still works when everything
+ else goes dark."
 ──────────────────────────────────────────────
 </pre>`,
   },
@@ -344,7 +339,7 @@ You just need to run it yourself.
     title: 'ABOUT.txt',
     width: 540, height: 440,
     x: 160, y: 90,
-    content: `<pre class="file-text">AZAD LAB :: ABOUT.txt
+    content: `<pre class="file-text">DOOMS DAY LAB :: ABOUT.txt
 ══════════════════════════════════════════════
 
 Founded by Arash — software engineer,
@@ -352,35 +347,42 @@ Stockholm-based, Iranian by background.
 
 ──────────────────────────────────────────────
 
-The Iranian context matters, not as identity
-branding, but as source material.
+The Iranian background is not the brand.
+It's the credibility.
 
-Iran has some of the most sophisticated internet
-censorship infrastructure on earth. Iranians have
-lived through shutdowns, throttling, targeted
-surveillance, and the total weaponization of
-digital infrastructure against civilians.
+Iran has some of the most sophisticated
+internet censorship infrastructure on earth.
+Iranians have lived through shutdowns,
+throttling, targeted surveillance, and the
+total weaponisation of digital infrastructure
+against civilians.
 
 Growing up in that environment, the tools in
 this curriculum weren't lifestyle choices —
 they were necessities. VPNs, encrypted
-communications, alternative DNS, offline-first
-thinking.
+communications, offline-first design, mesh
+networks. Not theory. Daily practice.
 
-That experience is why this curriculum is built
-the way it is: no fluff, no hypotheticals,
-just what actually works when stakes are real.
+I was in Iran during the November 2019 shutdown.
+I found out from a relative calling from abroad.
+As of today, Iran's internet has been cut for
+over 40 days. I have family inside.
 
 ──────────────────────────────────────────────
 
-Based in Stockholm, Azad Lab runs workshops for
-anyone who wants to understand and reclaim
-their digital life.
+These workshops exist because what happened
+there is no longer only a distant story.
 
-Sweden's NATO accession, the Russia-Ukraine war,
-and the normalization of mass surveillance have
-made this conversation urgent across Europe
-in a new way.
+Sweden joined NATO in 2024. Russia is active
+in our region. The EU's own research warns of
+critical infrastructure vulnerability. The AI
+systems we all use are harvesting data at a
+scale that would have been unthinkable a decade
+ago.
+
+Digital resilience and independence aren't
+radical ideas. They're what the next decade
+requires.
 
 The tools work. Come learn them.
 
@@ -392,58 +394,59 @@ The tools work. Come learn them.
     title: 'MANIFESTO.txt',
     width: 560, height: 500,
     x: 200, y: 60,
-    content: `<pre class="file-text">AZAD LAB :: MANIFESTO.txt
+    content: `<pre class="file-text">DOOMS DAY LAB :: MANIFESTO.txt
 ══════════════════════════════════════════════
 
-WHAT THEY KNOW ABOUT YOU RIGHT NOW
+THE AI ERA HAS A DATA PROBLEM — AND IT'S YOU
 
-Your ISP logs every domain you visit.
-Your phone maps your movements 24 hours a day.
-Your smart TV has a microphone.
-Your email provider reads your messages.
-Your browser fingerprint is unique.
-Your credit card tracks every purchase.
-Your metadata reveals more than your content.
+AI systems are being trained on everything.
+Your searches. Your messages. Your photos.
+Your political opinions. Your health queries.
+Your location history. Your shopping habits.
 
-This is not paranoia. This is infrastructure.
+This data is not just used to sell you things.
+It builds a model of who you are — one that
+predicts your behaviour, your beliefs, your
+vulnerabilities. In a corporate context,
+that model is sold to advertisers.
 
-──────────────────────────────────────────────
-
-WHAT CHANGED
-
-For decades, mass surveillance was theoretical —
-something that happened to dissidents, activists,
-people "with something to hide."
-
-Then Snowden showed us the architecture.
-Then Cambridge Analytica showed us the use.
-Then Iran shut off the internet.
-Then Russia weaponized platforms.
-Then governments started buying the data
-that corporations collected on their behalf.
-
-The threat model changed. So should you.
+In a political context, it becomes a list.
 
 ──────────────────────────────────────────────
 
-WHAT WE BELIEVE
+THE INTERNET CAN BE SWITCHED OFF
 
-Privacy is not about hiding.
-It's about control.
-It's about having the right to a private thought,
-a private conversation, a private life.
+Iran: 40+ days without internet. Right now.
+Not a protest shutdown. Just gone.
+80 million people. Families. Hospitals.
+Cut off from the world.
 
-Digital sovereignty is not a luxury.
-It's the difference between infrastructure
-that serves you and infrastructure that reports
-you to whoever pays or coerces enough.
+Ukraine: infrastructure targeted in hour one
+of the invasion. Satellites. Power. Telecoms.
 
-We don't ask you to trust us.
-We show you how to not need to trust anyone.
+Sweden is not Iran. Sweden is not Ukraine.
+But Sweden borders a region at war.
+Sweden's own MSB preparedness strategy exists
+for a reason: because disruption is possible.
+
+Digital preparedness belongs on that checklist.
 
 ──────────────────────────────────────────────
 
-THE ANSWER IS NOT BETTER TERMS OF SERVICE.
+WHAT RESILIENCE MEANS
+
+Owning your data instead of renting access.
+Running tools you control, not tools that
+report to someone else's server.
+Building systems that keep working offline.
+
+This is not paranoia.
+This is the same logic as a 72-hour emergency kit.
+Except it applies every day.
+
+──────────────────────────────────────────────
+
+THE ANSWER IS NOT BETTER PRIVACY SETTINGS.
 
 The answer is running your own stack.
 
@@ -526,10 +529,15 @@ As of writing this, Iran's internet has been
 cut off for over 40 days.
 
 Not tied to a specific protest. Not a temporary
-measure. Just gone. 40 days and counting.
+measure. Just gone. 40+ days and counting.
 
 I have family inside. You probably know someone
 who does too.
+
+This is why digital resilience matters.
+Not as a political statement.
+As preparation for a reality that is already
+here for some, and approaching for others.
 
 These tools are not paranoia.
 They are what right now requires.
@@ -541,7 +549,7 @@ They are what right now requires.
     title: 'JOIN.txt',
     width: 480, height: 360,
     x: 260, y: 110,
-    content: `<pre class="file-text">AZAD LAB :: JOIN.txt
+    content: `<pre class="file-text">DOOMS DAY LAB :: JOIN.txt
 ══════════════════════════════════════════════
 
 Workshop sessions run monthly in Stockholm.
@@ -552,13 +560,13 @@ Bring a laptop. Everything else is provided.
 
 ──────────────────────────────────────────────
 
-  TELEGRAM   t.me/azadlab
-  EMAIL      hello@azadlab.dev
+  TELEGRAM   t.me/doomsdaylab
+  EMAIL      hello@doomsdaylab.dev
 
 ──────────────────────────────────────────────
 
-If you want to bring Azad Lab to your city
-or organization — reach out.
+If you want to bring Dooms Day Lab to your
+city or organisation — reach out.
 
 The curriculum is open source.
 The knowledge belongs to everyone.

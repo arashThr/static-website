@@ -1,14 +1,22 @@
-# Azad Lab — CLAUDE.md
+# Dooms Day Lab — CLAUDE.md
 
 ## What this is
-A fully static website for Azad Lab, a hands-on digital sovereignty workshop community
+A fully static website for Dooms Day Lab, a hands-on digital resilience workshop community
 founded by Arash, a Swedish-Iranian software engineer based in Stockholm.
 The primary audience is Swedish people — the message resonates through the lens of
-Sweden's NATO accession, civil preparedness (MSB/Totalförsvaret), and the growing
-awareness of infrastructure vulnerability.
+Sweden's NATO accession, civil preparedness (MSB/Totalförsvaret), proximity to Russia,
+and AI-era data harvesting concerns.
 
 The Iranian background is not the brand. It's the credibility: Arash has lived through
 real internet shutdowns. The curriculum is built on that experience.
+
+## Core themes
+1. **AI era data harvesting** — everything about you is collected, profiled, and used; in
+   a political system this builds lists, not just ad profiles.
+2. **Real connectivity threats** — Iran's internet has been cut for 40+ days (ongoing 2026);
+   Ukraine had infrastructure targeted hour one; Sweden near Russia should be prepared.
+3. **Own your data, don't rent it** — owning your tools and data gives resilience when
+   corporate services go down, change terms, or are cut off.
 
 ## Files
 ```
