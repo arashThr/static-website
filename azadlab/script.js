@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   AZAD LAB — script.js
+   AZAD LAB - script.js
    ═══════════════════════════════════════════════════════ */
 
 'use strict';
@@ -57,7 +57,7 @@ class Eye {
     ctx.fillStyle = '#0b0b0b';
     ctx.fillRect(-ew - 1, -eh - 1, ew * 2 + 2, eh * 2 + 2);
 
-    /* iris offset (mouse tracking — transform into eye-local coords) */
+    /* iris offset (mouse tracking - transform into eye-local coords) */
     const cosT = Math.cos(-tilt), sinT = Math.sin(-tilt);
     const ldx = (mx - x) * cosT - (my - y) * sinT;
     const ldy = (mx - x) * sinT + (my - y) * cosT;
@@ -187,11 +187,11 @@ function scheduleNetworkAlert() {
       title: 'ALERT: connectivity.lost',
       html: `<div class="net-alert-content">
         <div class="net-alert-status">⚠ NETWORK CONNECTIVITY LOST</div>
-        <div class="net-alert-location">Detected: ${ts}<br>Region: Tehran, IR — AS44244 (IRANCELL)<br>Protocol: BGP withdrawal confirmed</div>
+        <div class="net-alert-location">Detected: ${ts}<br>Region: Tehran, IR - AS44244 (IRANCELL)<br>Protocol: BGP withdrawal confirmed</div>
         <div class="net-alert-body">
 Your connection to the outside world has been cut.<br><br>
 <em>This is what 80 million people have experienced<br>
-for 40+ days in 2026 — and counting.</em><br><br>
+for 40+ days in 2026 - and counting.</em><br><br>
 No AI tools. No cloud backup. No Signal.<br>
 No way to reach family abroad.<br><br>
 Sweden sits in a region where this is<br>
@@ -239,12 +239,12 @@ function startStatusFlicker() {
     'encryption is not a crime',
     'trust no one. verify everything.',
     'there is no cloud.',
-    'iran: day 40+ — no internet',
+    'iran: day 40+ - no internet',
     'rm -rf /surveillance',
     'own your data. trust no cloud.',
     'uptime: always',
     'connection: severed',
-    'ISP offline — gov. order #4821',
+    'ISP offline - gov. order #4821',
     'mesh: searching for peers...',
     'digital resilience starts offline',
     'fallback: shortwave radio',
@@ -301,8 +301,8 @@ const WINDOWS = {
 
 We are living through two slow emergencies.
 
-The first: everything about you — your searches,
-your location, your purchases, your opinions —
+The first: everything about you - your searches,
+your location, your purchases, your opinions -
 is being collected, analysed, and used. Not as
 a side effect. As the business model. In an AI
 era, this data becomes a detailed portrait of
@@ -310,7 +310,7 @@ who you are, what you believe, and how you can
 be influenced.
 
 The second: connectivity is not guaranteed.
-Iran's internet has been cut for over 40 days —
+Iran's internet has been cut for over 40 days -
 right now, as this is written. It has happened
 in Ukraine, Myanmar, Sudan, Ethiopia. Sweden
 sits close to a country that has weaponised
@@ -326,7 +326,7 @@ network doesn't.
 This is a hands-on workshop community. We teach
 real tools, real setups, real configurations.
 Not slides. Not theory. You leave with something
-running — something that's yours.
+running - something that's yours.
 
 ──────────────────────────────────────────────
 "What you own still works when everything
@@ -342,7 +342,7 @@ running — something that's yours.
     content: `<pre class="file-text">DOOMS DAY LAB :: ABOUT.txt
 ══════════════════════════════════════════════
 
-Founded by Arash — software engineer,
+Founded by Arash - software engineer,
 Stockholm-based, Iranian by background.
 
 ──────────────────────────────────────────────
@@ -358,7 +358,7 @@ total weaponisation of digital infrastructure
 against civilians.
 
 Growing up in that environment, the tools in
-this curriculum weren't lifestyle choices —
+this curriculum weren't lifestyle choices -
 they were necessities. VPNs, encrypted
 communications, offline-first design, mesh
 networks. Not theory. Daily practice.
@@ -397,7 +397,7 @@ The tools work. Come learn them.
     content: `<pre class="file-text">DOOMS DAY LAB :: MANIFESTO.txt
 ══════════════════════════════════════════════
 
-THE AI ERA HAS A DATA PROBLEM — AND IT'S YOU
+THE AI ERA HAS A DATA PROBLEM - AND IT'S YOU
 
 AI systems are being trained on everything.
 Your searches. Your messages. Your photos.
@@ -405,7 +405,7 @@ Your political opinions. Your health queries.
 Your location history. Your shopping habits.
 
 This data is not just used to sell you things.
-It builds a model of who you are — one that
+It builds a model of who you are - one that
 predicts your behaviour, your beliefs, your
 vulnerabilities. In a corporate context,
 that model is sold to advertisers.
@@ -458,7 +458,7 @@ The answer is running your own stack.
     title: 'BLACKOUT.log',
     width: 600, height: 540,
     x: 180, y: 55,
-    content: `<pre class="file-text">BLACKOUT.log — documented internet shutdowns
+    content: `<pre class="file-text">BLACKOUT.log - documented internet shutdowns
 ══════════════════════════════════════════════
 Source: NetBlocks, OONI, Access Now #KeepItOn
 
@@ -510,7 +510,7 @@ across 72 countries.
 Source: Access Now #KeepItOn coalition
 ──────────────────────────────────────────────
 
-[PERSONAL NOTE — Arash, 2026]
+[PERSONAL NOTE - Arash, 2026]
 
 I was in Iran during the November 2019 shutdown.
 
@@ -566,7 +566,7 @@ Bring a laptop. Everything else is provided.
 ──────────────────────────────────────────────
 
 If you want to bring Dooms Day Lab to your
-city or organisation — reach out.
+city or organisation - reach out.
 
 The curriculum is open source.
 The knowledge belongs to everyone.
@@ -585,7 +585,7 @@ const SESSIONS = [
 Why Linux. Why now.
 
 Big Tech built beautiful cages. Everything works
-seamlessly — as long as you stay inside. Your
+seamlessly - as long as you stay inside. Your
 phone, laptop, cloud storage: products designed
 to harvest you, not serve you.
 
@@ -593,7 +593,7 @@ WHAT WE COVER:
   · Why Linux matters for digital sovereignty
   · Install Ubuntu 24.04 or Fedora 41
   · The terminal: your new home base
-  · Package managers — software without an
+  · Package managers - software without an
     app store that controls what you run
   · Filesystem layout and why it matters
 
@@ -611,13 +611,13 @@ TOOLS: Ubuntu · Fedora · bash · apt/dnf`,
 
 Your memories don't belong in a corporation's
 datacentre. Run your own photo library and
-media server — Google Photos and Netflix,
+media server - Google Photos and Netflix,
 but yours.
 
 WHAT WE COVER:
   · Docker and containers (the concept)
   · Self-host Immich: your private Google Photos
-    — face recognition, mobile backup, all local
+    - face recognition, mobile backup, all local
   · Self-host Jellyfin: personal streaming server
   · Hardware options: old laptop, Pi, VPS
   · Backup strategy: the 3-2-1 rule applied
@@ -634,7 +634,7 @@ TOOLS: Docker · Immich · Jellyfin`,
     content: `SESSION 03 :: ACCESS IT ANYWHERE, SAFELY
 ══════════════════════════════════════════════
 
-You've built something. Now connect to it —
+You've built something. Now connect to it -
 privately, from anywhere, without opening
 ports to the entire internet.
 
@@ -669,7 +669,7 @@ WHAT WE COVER:
   · CalyxOS: an alternative for other devices
   · F-Droid: open-source app store, no Google
   · Signal, Session, Matrix/Element
-  · Local LLMs: llama.cpp + Gemma on-device —
+  · Local LLMs: llama.cpp + Gemma on-device -
     AI that never leaves your phone
 
 WHAT YOU LEAVE WITH:
@@ -691,7 +691,7 @@ home and a proper network storage server.
 WHAT WE COVER:
   · Raspberry Pi: from bare board to server
   · TrueNAS SCALE: professional NAS software,
-    free — RAID, snapshots, SMB, S3 storage
+    free - RAID, snapshots, SMB, S3 storage
   · Home Assistant: open-source home automation,
     runs entirely offline
   · Lights, climate, sensors, automations
@@ -709,8 +709,8 @@ TOOLS: Raspberry Pi · TrueNAS · Home Assistant`,
     content: `SESSION 06 :: DIGITAL RESILIENCE
 ══════════════════════════════════════════════
 
-When infrastructure fails — power cut, ISP down,
-government shutdown, disaster — what still works?
+When infrastructure fails - power cut, ISP down,
+government shutdown, disaster - what still works?
 Build systems that survive.
 
 WHAT WE COVER:
@@ -720,7 +720,7 @@ WHAT WE COVER:
     for communication when internet is gone
   · Syncthing: peer-to-peer sync, no servers
   · What Iran, Ukraine, Myanmar taught us about
-    infrastructure collapse — and what worked
+    infrastructure collapse - and what worked
   · Your personal resilience checklist
 
 WHAT YOU LEAVE WITH:
@@ -777,7 +777,7 @@ function openSessionsFolder() {
 
   openWins[key] = new WinBox({
     title: 'SESSIONS/',
-    html: `<div class="folder-meta">~/SESSIONS — 6 items — click to open</div>
+    html: `<div class="folder-meta">~/SESSIONS - 6 items - click to open</div>
            <div class="session-grid">${grid}</div>`,
     width: 540, height: 340,
     x: 110, y: 60,
@@ -792,7 +792,7 @@ function openSessionsFolder() {
   }, 50);
 }
 
-/* Desktop icon clicks — direct listeners avoid SVG child target issues */
+/* Desktop icon clicks - direct listeners avoid SVG child target issues */
 document.querySelectorAll('#iconGrid [data-win]').forEach(icon => {
   icon.addEventListener('click', () => {
     const key = icon.dataset.win;
