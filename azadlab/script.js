@@ -248,6 +248,8 @@ function startStatusFlicker() {
     'mesh: searching for peers...',
     'digital resilience starts offline',
     'fallback: shortwave radio',
+    'ollama run gemma4',
+    'bitchat: peer found. connecting...',
   ];
   const el = document.getElementById('termMsg');
   let idx = 0, pos = 0, typing = true;
@@ -578,157 +580,140 @@ The knowledge belongs to everyone.
 
 const SESSIONS = [
   {
-    file: '01_walled_garden.txt',
-    content: `SESSION 01 :: ESCAPE THE WALLED GARDEN
+    file: '01_your_computer_your_rules.txt',
+    content: `SESSION 01 :: YOUR COMPUTER, YOUR RULES
 ══════════════════════════════════════════════
 
-Why Linux. Why now.
-
-Big Tech built beautiful cages. Everything works
-seamlessly - as long as you stay inside. Your
-phone, laptop, cloud storage: products designed
-to harvest you, not serve you.
+Everything you do on Mac or Windows, you can
+do on Linux - often better, and often more
+beautifully. This session is about seeing what
+your computer can be when it works for you.
 
 WHAT WE COVER:
-  · Why Linux matters for digital sovereignty
-  · Install Ubuntu 24.04 or Fedora 41
-  · The terminal: your new home base
-  · Package managers - software without an
-    app store that controls what you run
-  · Filesystem layout and why it matters
+  · Linux can look exactly how you want -
+    demo of modern desktops
+  · Browse, code, write, design - it's all here
+  · No Copilot watching everything you type
+  · No forced updates, no walled app store
+  · The terminal as a power tool, not a
+    scary thing
 
 WHAT YOU LEAVE WITH:
-  A working Linux install. A terminal you're
-  not afraid of. The mental model every other
-  session builds on.
+  A working Linux install that feels like home.
 
 TOOLS: Ubuntu · Fedora · bash · apt/dnf`,
   },
   {
-    file: '02_own_your_media.txt',
-    content: `SESSION 02 :: OWN YOUR PHOTOS & MEDIA
+    file: '02_your_photos_your_server.txt',
+    content: `SESSION 02 :: YOUR PHOTOS, YOUR FILES, YOUR SERVER
 ══════════════════════════════════════════════
 
-Your memories don't belong in a corporation's
-datacentre. Run your own photo library and
-media server - Google Photos and Netflix,
-but yours.
+Your uploaded photos may be training AI models
+you'll never see. And when a corporate account
+gets locked - with no support, no appeal -
+your memories go with it.
 
 WHAT WE COVER:
-  · Docker and containers (the concept)
-  · Self-host Immich: your private Google Photos
-    - face recognition, mobile backup, all local
-  · Self-host Jellyfin: personal streaming server
-  · Hardware options: old laptop, Pi, VPS
-  · Backup strategy: the 3-2-1 rule applied
+  · What platforms do with your uploaded photos
+  · The reality of account lockouts: no Google
+    support exists for individuals
+  · Docker: the concept that makes self-hosting
+    accessible
+  · Immich: your private photo library - live
+    and working by end of session
+  · Tailscale: access everything privately,
+    from anywhere
+  · Hardware: old laptop, Pi, cheap VPS
 
 WHAT YOU LEAVE WITH:
-  Running Immich with photos syncing. Jellyfin
-  streaming. An understanding of how Docker
-  actually works.
+  Immich running and syncing from your phone.
+  Jellyfin setup as homework.
 
-TOOLS: Docker · Immich · Jellyfin`,
+TOOLS: Docker · Immich · Jellyfin · Tailscale · Caddy`,
   },
   {
-    file: '03_access_anywhere.txt',
-    content: `SESSION 03 :: ACCESS IT ANYWHERE, SAFELY
+    file: '03_your_own_little_server.txt',
+    content: `SESSION 03 :: YOUR OWN LITTLE SERVER
 ══════════════════════════════════════════════
 
-You've built something. Now connect to it -
-privately, from anywhere, without opening
-ports to the entire internet.
+A $50 device can block ads across your whole
+network, automate your home, and run your own
+services - no subscription, no cloud account,
+no third party in the loop.
 
 WHAT WE COVER:
-  · Tailscale: private mesh VPN on WireGuard
-  · Hetzner VPS: cheap, reliable, European
-  · Caddy reverse proxy: automatic HTTPS,
-    clean routing, minimal config
-  · DNS basics: pointing names at your infra
-  · Putting it together: access Immich and
-    Jellyfin from your phone, anywhere
+  · Raspberry Pi: what it is, what it can
+    do, first boot
+  · Pi-hole: network-wide ad and tracker
+    blocking - covers every device at home
+  · Home Assistant: open-source home
+    automation, fully offline
+  · Lights, sensors, climate - without
+    Amazon or Google involved
+  · Once you can run a Pi, you can run anything
 
 WHAT YOU LEAVE WITH:
-  A Tailscale network connecting your devices.
-  A VPS with Caddy serving your services
-  over HTTPS with valid certs.
+  Pi-hole blocking ads on your whole network.
+  Home Assistant installed and controlling
+  one thing.
 
-TOOLS: Tailscale · WireGuard · Caddy · Hetzner`,
+TOOLS: Raspberry Pi · Pi-hole · Home Assistant`,
   },
   {
-    file: '04_phone_spying.txt',
-    content: `SESSION 04 :: YOUR PHONE IS SPYING ON YOU
+    file: '04_ai_trust_own_it.txt',
+    content: `SESSION 04 :: AI: TRUST & OWN IT
 ══════════════════════════════════════════════
 
-Your phone is the most intimate surveillance
-device ever invented. It knows where you sleep,
-who you love, what you fear. Take it back.
+Every query you send to ChatGPT or Copilot
+goes to a cloud server. Your questions reveal
+your work, your thinking, your politics.
+
+AI can now run entirely on your own machine.
 
 WHAT WE COVER:
-  · What stock Android and iOS actually collect
-  · GrapheneOS: hardened Android for Pixels
-  · CalyxOS: an alternative for other devices
-  · F-Droid: open-source app store, no Google
-  · Signal, Session, Matrix/Element
-  · Local LLMs: llama.cpp + Gemma on-device -
-    AI that never leaves your phone
+  · What LLMs actually are - demystified,
+    no maths
+  · What your queries reveal and where they go
+  · Ollama: one command, any open model, local
+  · Gemma 4 and other open models - quality
+    is genuinely there
+  · LM Studio: a GUI, no command line required
+  · Chat, document Q&A, coding help - offline
 
 WHAT YOU LEAVE WITH:
-  A concrete plan for your device. For Pixel
-  owners: a flashed GrapheneOS install.
-  For everyone: an audited, hardened phone.
+  Ollama running with Gemma 4. A local AI
+  assistant on your own machine.
 
-TOOLS: GrapheneOS · F-Droid · Signal · llama.cpp`,
+TOOLS: Ollama · Gemma 4 · LM Studio`,
   },
   {
-    file: '05_nas_home_auto.txt',
-    content: `SESSION 05 :: NAS & HOME AUTOMATION
+    file: '05_when_the_network_goes_dark.txt',
+    content: `SESSION 05 :: WHEN THE NETWORK GOES DARK
 ══════════════════════════════════════════════
 
-Your home should work for you, not report
-to Amazon or Google. Build a local-first smart
-home and a proper network storage server.
+Power cut. ISP down. Infrastructure attack.
+What tools still work?
+
+This session is about communicating and staying
+coordinated when the internet isn't available.
 
 WHAT WE COVER:
-  · Raspberry Pi: from bare board to server
-  · TrueNAS SCALE: professional NAS software,
-    free - RAID, snapshots, SMB, S3 storage
-  · Home Assistant: open-source home automation,
-    runs entirely offline
-  · Lights, climate, sensors, automations
-    without cloud dependencies
-  · Local voice control (no Alexa, no Google)
+  · BitChat: mesh messaging over Bluetooth
+    and WiFi - no internet required
+  · Meshtastic + LoRa: long-range mesh network
+    without any infrastructure
+  · Syncthing: peer-to-peer file sync,
+    no servers involved
+  · The Nomad project: essential digital
+    emergency kit
+  · Iran, Ukraine, Sudan: what actually worked
+    when the network went dark
 
 WHAT YOU LEAVE WITH:
-  Home Assistant running automations. A design
-  for your home storage setup.
+  BitChat installed and tested. A personal
+  offline resilience checklist.
 
-TOOLS: Raspberry Pi · TrueNAS · Home Assistant`,
-  },
-  {
-    file: '06_digital_resilience.txt',
-    content: `SESSION 06 :: DIGITAL RESILIENCE
-══════════════════════════════════════════════
-
-When infrastructure fails - power cut, ISP down,
-government shutdown, disaster - what still works?
-Build systems that survive.
-
-WHAT WE COVER:
-  · Offline-first design: build for disconnection
-  · Encrypted backups with Borg and Restic
-  · Mesh networking: Meshtastic + LoRa radio
-    for communication when internet is gone
-  · Syncthing: peer-to-peer sync, no servers
-  · What Iran, Ukraine, Myanmar taught us about
-    infrastructure collapse - and what worked
-  · Your personal resilience checklist
-
-WHAT YOU LEAVE WITH:
-  A running encrypted backup solution. An
-  understanding of offline and mesh tools.
-  A concrete personal resilience plan.
-
-TOOLS: Borg · Restic · Syncthing · Meshtastic`,
+TOOLS: BitChat · Meshtastic · LoRa · Syncthing`,
   },
 ];
 
@@ -777,7 +762,7 @@ function openSessionsFolder() {
 
   openWins[key] = new WinBox({
     title: 'SESSIONS/',
-    html: `<div class="folder-meta">~/SESSIONS - 6 items - click to open</div>
+    html: `<div class="folder-meta">~/SESSIONS - 5 items - click to open</div>
            <div class="session-grid">${grid}</div>`,
     width: 540, height: 340,
     x: 110, y: 60,
