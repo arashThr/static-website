@@ -1,0 +1,4 @@
+baseURL       = "/"
+languageCode  = "en"
+title         = "Dooms Day Lab — Digital Resilience Workshops · Stockholm"
+disableKinds  = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT"]

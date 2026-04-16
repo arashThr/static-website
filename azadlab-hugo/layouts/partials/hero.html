@@ -1,0 +1,54 @@
+<section id="hero">
+
+  <svg id="heroEye" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="irisG" cx="43%" cy="40%" r="58%">
+        <stop offset="0%"   stop-color="#922c0a"/>
+        <stop offset="30%"  stop-color="#4e1206"/>
+        <stop offset="70%"  stop-color="#200603"/>
+        <stop offset="100%" stop-color="#100100"/>
+      </radialGradient>
+      <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="rgba(190,90,25,0.14)"/>
+        <stop offset="100%" stop-color="rgba(190,90,25,0)"/>
+      </radialGradient>
+    </defs>
+
+    <ellipse cx="400" cy="190" rx="395" ry="182" fill="url(#glowG)"/>
+
+    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190 C 680,330 515,366 400,366 C 285,366 120,330 16,190 Z"
+          fill="#0c0707"/>
+
+    <circle id="eyeIris" cx="400" cy="190" r="110" fill="url(#irisG)"/>
+    <circle cx="400" cy="190" r="110" fill="none" stroke="rgba(140,55,18,0.3)" stroke-width="1.5"/>
+    <circle cx="400" cy="190" r="84"  fill="none" stroke="rgba(110,40,14,0.2)" stroke-width="1"/>
+    <circle id="eyePupil" cx="400" cy="190" r="52" fill="#000"/>
+
+    <ellipse cx="436" cy="163" rx="21" ry="13" fill="rgba(255,205,120,0.10)" transform="rotate(-28 436 163)"/>
+    <circle  cx="442" cy="158" r="8" fill="rgba(255,225,160,0.14)"/>
+
+    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190"
+          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
+    <path d="M 16,190 C 120,330 285,366 400,366 C 515,366 680,330 784,190"
+          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
+
+    <path id="lidTop"
+          d="M -30,190 C 120,50 285,14 400,14 C 515,14 680,50 830,190 L 830,-30 L -30,-30 Z"
+          fill="#060608"/>
+    <path id="lidBot"
+          d="M -30,190 C 120,330 285,366 400,366 C 515,366 680,330 830,190 L 830,410 L -30,410 Z"
+          fill="#060608"/>
+  </svg>
+
+  <div class="hero-content" id="heroContent">
+    <h1 class="hero-title">DOOMS DAY LAB</h1>
+    <p class="hero-sub">Digital Resilience Workshops · Stockholm</p>
+    <p class="hero-farsi">own it. or lose it.</p>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue">
+    <span>SCROLL</span>
+    <span class="scroll-line"></span>
+  </div>
+
+</section>
