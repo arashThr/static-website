@@ -1,0 +1,29 @@
+<section id="preparedness">
+  <p class="label">The real threat</p>
+  <h2 class="section-heading">It happens.</h2>
+
+  <div class="incidents" id="incidentList">
+    {{ range .Site.Data.threats }}
+    <div class="incident">
+      <div class="incident-when">{{ .when }}</div>
+      <div class="incident-what">{{ .what }}</div>
+      <div class="incident-detail">{{ .detail }}</div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="shutdown-alert" id="shutdownAlert">
+    If you don't have a local copy, you don't really have it.
+  </div>
+
+  <div class="photo-row">
+    <div class="photo-slot">
+      <img class="photo" src="/img/shutdown.jpg" alt="Iran internet shutdown April 2026">
+      <span class="photo-slot-desc">Iran internet shutdown<br>April 2026</span>
+    </div>
+    <div class="photo-slot">
+      <img class="photo" src="/img/netblocks.jpg" alt="NetBlocks BGP traffic graph">
+      <span class="photo-slot-desc">NetBlocks traffic graph<br>BGP withdrawal documented</span>
+    </div>
+  </div>
+</section>

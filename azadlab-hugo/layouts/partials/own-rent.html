@@ -1,0 +1,13 @@
+<section id="own-rent">
+  <p class="label">What's at stake</p>
+  <h2 class="section-heading">Your data.<br>Your call.</h2>
+
+  <div class="data-list" id="dataList">
+    {{ range .Site.Data.data_items }}
+    <details class="data-item">
+      <summary><span class="dot"></span>{{ .title }}</summary>
+      <div class="data-sub">{{ .detail }}</div>
+    </details>
+    {{ end }}
+  </div>
+</section>

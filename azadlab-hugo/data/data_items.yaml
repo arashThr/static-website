@@ -1,0 +1,14 @@
+- title: "Your photos and memories"
+  detail: "Used to train AI models. Your account can be locked with no human support. You're renting access to your own archive."
+
+- title: "Your messages"
+  detail: "Scanned for content, used to build profiles. End-to-end encryption is the exception, not the rule."
+
+- title: "Your browsing and habits"
+  detail: "Builds a detailed picture of who you are. Usually shapes ads. Sometimes something more consequential."
+
+- title: "Your tools and creative work"
+  detail: "Rented monthly. Stop paying and lose access. Locked into formats and platforms you don't control."
+
+- title: "Your connectivity"
+  detail: "Can be throttled, disrupted, or switched off entirely. What runs locally keeps working when it is."

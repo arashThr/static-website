@@ -1,0 +1,33 @@
+<section id="curriculum">
+  <p class="label">Workshop objectives</p>
+  <h2 class="section-heading">5 sessions.<br>Real skills.<br>Yours to keep.</h2>
+
+  <p class="curriculum-intro" id="curriculumIntro">
+    Five hands-on sessions. Each one ends with something running on your own machine —
+    no subscriptions, no corporate accounts, no single point of failure.
+  </p>
+
+  <div class="sess-list" id="sessList">
+    {{ range .Site.Data.sessions }}
+    <details class="sess-card">
+      <summary>
+        <div class="sess-summary-inner">
+          <div class="sess-num">{{ .num }}</div>
+          <div class="sess-title">{{ .title }}</div>
+          <div class="sess-brief">{{ .brief }}</div>
+        </div>
+        <span class="acc-chevron">▼</span>
+      </summary>
+      <div class="sess-body">
+        <ul class="sess-covers">
+          {{ range .covers }}<li>{{ . }}</li>{{ end }}
+        </ul>
+        <div class="sess-divider"></div>
+        <span class="sess-outcome-label">You leave with:</span>
+        <div class="sess-outcome">{{ .outcome }}</div>
+        <div class="sess-tools">{{ .tools }}</div>
+      </div>
+    </details>
+    {{ end }}
+  </div>
+</section>
