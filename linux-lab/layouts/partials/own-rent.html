@@ -5,7 +5,11 @@
   <div class="data-list" id="dataList">
     {{ range .Site.Data.data_items }}
     <details class="data-item">
-      <summary><span class="dot"></span>{{ .title }}</summary>
+      <summary>
+        <span class="dot"></span>
+        <span class="data-title">{{ .title }}</span>
+        <span class="acc-toggle" aria-hidden="true"></span>
+      </summary>
       <div class="data-sub">{{ .detail }}</div>
     </details>
     {{ end }}

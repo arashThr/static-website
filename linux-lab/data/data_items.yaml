@@ -1,14 +1,14 @@
-- title: "Your photos and memories"
-  detail: "Used to train AI models. Your account can be locked with no human support. You're renting access to your own archive."
+- title: "Your photos — Google Photos, iCloud, Meta"
+  detail: "Every upload is scanned. Used for AI training, content matching, and ad targeting. Accounts get suspended by automated systems with no human review and no appeal."
 
-- title: "Your messages"
-  detail: "Scanned for content, used to build profiles. End-to-end encryption is the exception, not the rule."
+- title: "Your email and messages — Gmail, WhatsApp, iMessage"
+  detail: "Gmail scans your email to build an ad profile. WhatsApp hands metadata to Meta. Telegram is the exception. Most messaging is not private by default."
 
-- title: "Your browsing and habits"
-  detail: "Builds a detailed picture of who you are. Usually shapes ads. Sometimes something more consequential."
+- title: "Your browsing — Chrome, Edge, most apps"
+  detail: "Your browser and apps log what you read, search, and buy. That data is sold to data brokers and kept indefinitely. Switching to Firefox + uBlock Origin takes ten minutes."
 
-- title: "Your tools and creative work"
-  detail: "Rented monthly. Stop paying and lose access. Locked into formats and platforms you don't control."
+- title: "Your software — Adobe, Microsoft 365, Spotify"
+  detail: "Stop paying and you lose access — including to files you created. Open source alternatives exist for almost all of them and don't require a subscription."
 
-- title: "Your connectivity"
-  detail: "Can be throttled, disrupted, or switched off entirely. What runs locally keeps working when it is."
+- title: "Your internet connection"
+  detail: "Your ISP can throttle specific services, log your traffic, and hand it over on request. Governments can order a full shutdown. Iran has been offline for 40+ days. It can happen anywhere."
