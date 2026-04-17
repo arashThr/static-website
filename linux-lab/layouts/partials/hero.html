@@ -1,43 +1,42 @@
 <section id="hero">
 
-  <svg id="heroEye" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Warm orbiting-rings graphic — replaces the surveillance eye -->
+  <svg id="heroOrb" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
-      <radialGradient id="irisG" cx="43%" cy="40%" r="58%">
-        <stop offset="0%"   stop-color="#922c0a"/>
-        <stop offset="30%"  stop-color="#4e1206"/>
-        <stop offset="70%"  stop-color="#200603"/>
-        <stop offset="100%" stop-color="#100100"/>
+      <radialGradient id="coreG" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="rgba(255,195,70,0.95)"/>
+        <stop offset="35%"  stop-color="rgba(240,140,30,0.45)"/>
+        <stop offset="70%"  stop-color="rgba(220,90,20,0.10)"/>
+        <stop offset="100%" stop-color="rgba(200,70,10,0)"/>
       </radialGradient>
       <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="rgba(190,90,25,0.14)"/>
-        <stop offset="100%" stop-color="rgba(190,90,25,0)"/>
+        <stop offset="0%"   stop-color="rgba(240,168,32,0.20)"/>
+        <stop offset="60%"  stop-color="rgba(240,168,32,0.05)"/>
+        <stop offset="100%" stop-color="rgba(240,168,32,0)"/>
       </radialGradient>
     </defs>
 
-    <ellipse cx="400" cy="190" rx="395" ry="182" fill="url(#glowG)"/>
+    <!-- Outer ambient glow -->
+    <circle cx="300" cy="300" r="290" fill="url(#glowG)"/>
 
-    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190 C 680,330 515,366 400,366 C 285,366 120,330 16,190 Z"
-          fill="#0c0707"/>
+    <!-- Concentric rings — subtle, like a sonar or friendly signal -->
+    <circle cx="300" cy="300" r="255" fill="none" stroke="rgba(240,168,32,0.05)" stroke-width="1"/>
+    <circle cx="300" cy="300" r="215" fill="none" stroke="rgba(240,168,32,0.07)" stroke-width="1"/>
+    <circle cx="300" cy="300" r="175" fill="none" stroke="rgba(240,168,32,0.10)" stroke-width="1"/>
+    <circle cx="300" cy="300" r="135" fill="none" stroke="rgba(240,168,32,0.14)" stroke-width="1.5"/>
+    <circle cx="300" cy="300" r="96"  fill="none" stroke="rgba(240,168,32,0.20)" stroke-width="2"/>
 
-    <circle id="eyeIris" cx="400" cy="190" r="110" fill="url(#irisG)"/>
-    <circle cx="400" cy="190" r="110" fill="none" stroke="rgba(140,55,18,0.3)" stroke-width="1.5"/>
-    <circle cx="400" cy="190" r="84"  fill="none" stroke="rgba(110,40,14,0.2)" stroke-width="1"/>
-    <circle id="eyePupil" cx="400" cy="190" r="52" fill="#000"/>
+    <!-- Warm core -->
+    <circle cx="300" cy="300" r="290" fill="url(#coreG)" opacity="0.25"/>
+    <circle cx="300" cy="300" r="30"  fill="rgba(255,200,80,0.14)"/>
+    <circle cx="300" cy="300" r="18"  fill="rgba(255,185,55,0.32)"/>
+    <circle cx="300" cy="300" r="9"   fill="rgba(255,210,90,0.80)"/>
 
-    <ellipse cx="436" cy="163" rx="21" ry="13" fill="rgba(255,205,120,0.10)" transform="rotate(-28 436 163)"/>
-    <circle  cx="442" cy="158" r="8" fill="rgba(255,225,160,0.14)"/>
-
-    <path d="M 16,190 C 120,50 285,14 400,14 C 515,14 680,50 784,190"
-          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
-    <path d="M 16,190 C 120,330 285,366 400,366 C 515,366 680,330 784,190"
-          fill="none" stroke="rgba(95,48,16,0.5)" stroke-width="1.5"/>
-
-    <path id="lidTop"
-          d="M -30,190 C 120,50 285,14 400,14 C 515,14 680,50 830,190 L 830,-30 L -30,-30 Z"
-          fill="#060608"/>
-    <path id="lidBot"
-          d="M -30,190 C 120,330 285,366 400,366 C 515,366 680,330 830,190 L 830,410 L -30,410 Z"
-          fill="#060608"/>
+    <!-- Orbiting dots — teal and gold -->
+    <circle id="orbDot1" cx="300" cy="85"  r="4"   fill="rgba(61,184,152,0.80)"/>
+    <circle id="orbDot2" cx="515" cy="300" r="3"   fill="rgba(240,168,32,0.70)"/>
+    <circle id="orbDot3" cx="300" cy="515" r="3.5" fill="rgba(61,184,152,0.55)"/>
+    <circle id="orbDot4" cx="85"  cy="300" r="2.5" fill="rgba(240,140,32,0.60)"/>
   </svg>
 
   <div class="hero-content" id="heroContent">
