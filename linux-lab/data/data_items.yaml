@@ -2,7 +2,7 @@
   detail: "Every upload is scanned. Used for AI training, content matching, and ad targeting. Accounts get suspended by automated systems with no human review and no appeal."
 
 - title: "Your email and messages — Gmail, WhatsApp, iMessage"
-  detail: "Gmail scans your email to build an ad profile. WhatsApp hands metadata to Meta. Signal is the exception. Most messaging is not private by default."
+  detail: "Gmail scans your email to build an ad profile. WhatsApp hands metadata to Meta. Telegram is the exception. Most messaging is not private by default."
 
 - title: "Your browsing — Chrome, Edge, most apps"
   detail: "Your browser and apps log what you read, search, and buy. That data is sold to data brokers and kept indefinitely. Switching to Firefox + uBlock Origin takes ten minutes."

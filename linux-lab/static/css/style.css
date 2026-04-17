@@ -447,6 +447,8 @@ details.data-item[open] .acc-toggle::before { content: '–'; }
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 250px;
+  margin: auto;
 }
 
 .about-body {
