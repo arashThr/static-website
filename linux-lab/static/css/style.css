@@ -457,7 +457,18 @@ details.data-item[open] .acc-toggle::before { content: '–'; }
   align-items: start;
 }
 
-.about-photo-col { display: flex; flex-direction: column; gap: 10px; }
+.about-photo-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-photo {
+    display: block;
+    max-width: 100px;
+    margin: auto;
+    border-radius: 50%;
+}
 
 .about-body { display: flex; flex-direction: column; gap: 18px; }
 
